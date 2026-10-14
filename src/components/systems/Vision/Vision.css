@@ -1,0 +1,230 @@
+.vision-panel {
+  position: fixed;
+  right: 24px;
+  bottom: 104px;
+  z-index: 20;
+  width: min(410px, calc(100vw - 32px));
+  padding: 15px;
+  border: 1px solid rgba(103, 232, 249, 0.28);
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(8, 16, 29, 0.96), rgba(38, 20, 57, 0.94));
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.42), 0 0 28px rgba(34, 211, 238, 0.1);
+  backdrop-filter: blur(18px);
+  animation: vision-panel-in 0.22s ease-out both;
+}
+
+.vision-header,
+.vision-actions,
+.vision-status {
+  display: flex;
+  align-items: center;
+}
+
+.vision-header {
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.vision-kicker,
+.vision-status,
+.vision-question span,
+.vision-result > span {
+  color: rgba(165, 243, 252, 0.68);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.vision-header h2 {
+  margin: 3px 0 0;
+  color: #eefbff;
+  font-size: 1.02rem;
+  letter-spacing: 0.12em;
+}
+
+.vision-close,
+.vision-primary,
+.vision-secondary {
+  border: 1px solid rgba(192, 132, 252, 0.28);
+  border-radius: 6px;
+  padding: 8px 10px;
+  color: #e8edf7;
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+}
+
+.vision-close:hover,
+.vision-secondary:hover {
+  border-color: rgba(103, 232, 249, 0.55);
+}
+
+.vision-status {
+  gap: 7px;
+  margin: 12px 0 9px;
+}
+
+.vision-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #64748b;
+}
+
+.vision-status-active .vision-status-dot,
+.vision-status-captured .vision-status-dot,
+.vision-status-analyzing .vision-status-dot,
+.vision-status-result .vision-status-dot {
+  background: #67e8f9;
+  box-shadow: 0 0 11px rgba(103, 232, 249, 0.9);
+}
+
+.vision-status-analyzing .vision-status-dot,
+.vision-status-requesting .vision-status-dot {
+  animation: vision-pulse 0.9s ease-in-out infinite;
+}
+
+.vision-status-denied .vision-status-dot,
+.vision-status-error .vision-status-dot {
+  background: #fda4af;
+}
+
+.vision-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 185px;
+  overflow: hidden;
+  border: 1px solid rgba(103, 232, 249, 0.2);
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.32);
+}
+
+.vision-frame video,
+.vision-frame img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.vision-offline {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  padding: 28px 18px;
+  text-align: center;
+}
+
+.vision-offline span {
+  color: #67e8f9;
+  font-size: 1.5rem;
+}
+
+.vision-offline strong {
+  color: #e0faff;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+}
+
+.vision-offline small {
+  color: rgba(232, 237, 247, 0.52);
+  font-size: 0.72rem;
+}
+
+.vision-scanline {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: #67e8f9;
+  box-shadow: 0 0 14px #67e8f9;
+  animation: vision-scan 1.2s linear infinite;
+}
+
+.vision-error {
+  margin: 9px 0 0;
+  color: #fda4af;
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+.vision-result {
+  margin-top: 10px;
+  padding: 9px;
+  border-left: 2px solid #67e8f9;
+  background: rgba(103, 232, 249, 0.05);
+}
+
+.vision-result p {
+  margin: 5px 0 0;
+  color: rgba(232, 237, 247, 0.82);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.vision-question {
+  display: grid;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.vision-question input {
+  width: 100%;
+  border: 1px solid rgba(192, 132, 252, 0.2);
+  border-radius: 6px;
+  padding: 8px 9px;
+  color: #e8edf7;
+  background: rgba(0, 0, 0, 0.24);
+  outline: none;
+  font-size: 0.76rem;
+}
+
+.vision-question input:focus {
+  border-color: rgba(103, 232, 249, 0.55);
+}
+
+.vision-actions {
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 11px;
+}
+
+.vision-primary {
+  border-color: rgba(103, 232, 249, 0.44);
+  color: #dffbff;
+  background: rgba(34, 211, 238, 0.1);
+}
+
+.vision-primary:hover {
+  background: rgba(34, 211, 238, 0.18);
+}
+
+.vision-primary:disabled,
+.vision-secondary:disabled,
+.vision-close:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+@keyframes vision-panel-in {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes vision-pulse {
+  50% { opacity: 0.35; transform: scale(0.7); }
+}
+
+@keyframes vision-scan {
+  from { transform: translateY(0); }
+  to { transform: translateY(185px); }
+}
+
+@media (max-width: 600px) {
+  .vision-panel {
+    right: 16px;
+    bottom: 94px;
+    width: calc(100vw - 32px);
+  }
+}

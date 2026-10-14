@@ -1,0 +1,169 @@
+/* ==================================================
+   ULTRON — GLOBAL STYLES
+================================================== */
+
+:root {
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: #e8edf7;
+  background: #05070d;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==================================================
+   GLOBAL BOX SIZING
+================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ==================================================
+   VIEWPORT FOUNDATION
+================================================== */
+
+html {
+  width: 100%;
+  min-width: 320px;
+  height: 100%;
+  min-height: 100%;
+  background: #05070d;
+}
+
+body {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
+  height: 100vh;
+
+  margin: 0;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(45, 100, 180, 0.08),
+      transparent 35%
+    ),
+    #05070d;
+}
+
+/* ==================================================
+   REACT ROOT
+================================================== */
+
+#root {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
+  height: 100%;
+
+  margin: 0;
+
+  isolation: isolate;
+}
+
+/* ==================================================
+   GLOBAL ELEMENTS
+================================================== */
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ==================================================
+   TEXT SELECTION
+================================================== */
+
+::selection {
+  background: rgba(0, 180, 255, 0.25);
+  color: #ffffff;
+}
+
+/* ==================================================
+   FUTURISTIC SCROLLBAR
+================================================== */
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #05070d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 150, 190, 0.25);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(120, 150, 190, 0.45);
+}
+
+/* ==================================================
+   FIREFOX SCROLLBAR
+================================================== */
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(120, 150, 190, 0.25) #05070d;
+}
+
+/* ==================================================
+   MOBILE VIEWPORT SAFETY
+================================================== */
+
+@supports (height: 100dvh) {
+  body {
+    min-height: 100dvh;
+  }
+
+  #root {
+    min-height: 100dvh;
+  }
+}
+
+/* ==================================================
+   REDUCE MOTION
+   Respect users who prefer reduced animation.
+================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

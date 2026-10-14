@@ -1,0 +1,136 @@
+.ultron-mode-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ultron-mode-control-label {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+}
+
+.ultron-mode-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  border: 1px solid rgba(192, 132, 252, 0.3);
+  padding: 0 9px;
+  background: rgba(76, 29, 149, 0.14);
+  color: #d8b4fe;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+}
+
+.ultron-mode-trigger:hover,
+.ultron-mode-trigger[aria-expanded="true"] {
+  border-color: rgba(192, 132, 252, 0.7);
+  background: rgba(124, 58, 237, 0.24);
+}
+
+.ultron-mode-dot {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #c084fc;
+  box-shadow: 0 0 8px rgba(192, 132, 252, 0.8);
+}
+
+.mode-focus .ultron-mode-dot,
+.ultron-mode-option.active .ultron-mode-dot {
+  background: #67e8f9;
+  box-shadow: 0 0 8px rgba(103, 232, 249, 0.8);
+}
+
+.ultron-mode-chevron {
+  margin-left: 2px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+  line-height: 0.6;
+}
+
+.ultron-mode-popover {
+  position: fixed;
+  top: 76px;
+  right: 24px;
+  z-index: 30;
+  width: min(300px, calc(100vw - 28px));
+  border: 1px solid rgba(192, 132, 252, 0.42);
+  border-radius: 10px;
+  padding: 13px;
+  background: linear-gradient(145deg, rgba(22, 11, 39, 0.98), rgba(7, 8, 20, 0.98));
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.42), inset 0 0 24px rgba(124, 58, 237, 0.08);
+}
+
+.ultron-mode-popover-title {
+  border-bottom: 1px solid rgba(192, 132, 252, 0.2);
+  padding: 3px 3px 11px;
+  color: #a78bfa;
+  font-size: 0.58rem;
+  letter-spacing: 0.13em;
+}
+
+.ultron-mode-options {
+  display: grid;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.ultron-mode-option {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid transparent;
+  padding: 7px 8px;
+  background: transparent;
+  color: #ead7ff;
+  text-align: left;
+}
+
+.ultron-mode-option:hover,
+.ultron-mode-option.active {
+  border-color: rgba(192, 132, 252, 0.28);
+  background: rgba(124, 58, 237, 0.14);
+}
+
+.ultron-mode-option-copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.ultron-mode-option-copy strong {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+}
+
+.ultron-mode-option-copy small {
+  overflow-wrap: anywhere;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 0.58rem;
+}
+
+.ultron-mode-current {
+  margin-left: auto;
+  color: #67e8f9;
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 600px) {
+  .ultron-mode-popover {
+    top: 70px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    padding: 11px;
+  }
+
+  .ultron-mode-option {
+    min-height: 50px;
+  }
+}

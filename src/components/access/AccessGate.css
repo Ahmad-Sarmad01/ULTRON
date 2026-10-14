@@ -1,0 +1,307 @@
+.ultron-access-shell {
+  position: relative;
+  width: 100vw;
+  min-height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  color: #fff5df;
+  background: #020303;
+  font-family: "IBM Plex Mono", "Lucida Console", "Courier New", monospace;
+}
+
+.ultron-access-atmosphere {
+  position: fixed;
+  inset: -20%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(246, 177, 61, 0.11), transparent 20%),
+    radial-gradient(circle at 15% 85%, rgba(181, 88, 19, 0.08), transparent 28%),
+    radial-gradient(circle at 90% 10%, rgba(255, 206, 103, 0.045), transparent 24%);
+}
+
+.ultron-access-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.45;
+  background-image:
+    linear-gradient(rgba(255, 216, 139, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 216, 139, 0.018) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at center, #000 0%, transparent 72%);
+}
+
+.ultron-access-card {
+  position: relative;
+  z-index: 1;
+  width: min(760px, 100%);
+  min-height: 610px;
+  padding: 46px 50px 30px;
+  border: 1px solid rgba(238, 195, 112, 0.2);
+  background: linear-gradient(145deg, rgba(12, 12, 11, 0.91), rgba(5, 6, 6, 0.82));
+  box-shadow:
+    inset 0 0 70px rgba(238, 174, 62, 0.035),
+    0 30px 100px rgba(0, 0, 0, 0.5),
+    0 0 80px rgba(190, 112, 25, 0.06);
+  backdrop-filter: blur(16px);
+}
+
+.access-corner {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  pointer-events: none;
+}
+
+.access-corner-top {
+  top: -1px;
+  right: -1px;
+  border-top: 1px solid rgba(255, 209, 115, 0.8);
+  border-right: 1px solid rgba(255, 209, 115, 0.8);
+}
+
+.access-corner-bottom {
+  bottom: -1px;
+  left: -1px;
+  border-bottom: 1px solid rgba(214, 137, 39, 0.55);
+  border-left: 1px solid rgba(214, 137, 39, 0.55);
+}
+
+.access-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+}
+
+.access-brand-mark {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(246, 183, 75, 0.4);
+  border-radius: 50%;
+  box-shadow: 0 0 22px rgba(246, 177, 61, 0.1);
+}
+
+.access-brand-mark span {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #f6bd58;
+  box-shadow: 0 0 8px rgba(246, 189, 88, 0.8);
+}
+
+.access-brand-mark span:nth-child(1) { transform: translateY(-9px); }
+.access-brand-mark span:nth-child(2) { transform: translateX(8px) translateY(5px); }
+.access-brand-mark span:nth-child(3) { transform: translateX(-8px) translateY(5px); }
+
+.access-kicker,
+.access-eyebrow,
+.access-status,
+.access-form label,
+.access-footer,
+.access-feedback {
+  margin: 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.access-kicker {
+  color: rgba(255, 220, 157, 0.46);
+  font-size: 8px;
+  margin-bottom: 5px;
+}
+
+.access-header h1 {
+  margin: 0;
+  color: #f9c45e;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 8px;
+}
+
+.access-status {
+  color: rgba(255, 214, 136, 0.45);
+  font-size: 8px;
+  padding: 6px 8px;
+  border: 1px solid rgba(255, 214, 136, 0.14);
+}
+
+.access-divider {
+  width: 100%;
+  height: 1px;
+  margin-top: 34px;
+  background: linear-gradient(90deg, rgba(246, 187, 78, 0.55), rgba(246, 187, 78, 0.08), transparent);
+}
+
+.access-introduction {
+  margin-top: 76px;
+  max-width: 600px;
+}
+
+.access-eyebrow {
+  color: #eeb24e;
+  font-size: 9px;
+}
+
+.access-introduction h2 {
+  margin: 13px 0 12px;
+  color: #fff9ed;
+  font-family: Inter, "Segoe UI", sans-serif;
+  font-size: clamp(38px, 6vw, 58px);
+  font-weight: 300;
+  letter-spacing: 3px;
+}
+
+.access-introduction p {
+  max-width: 510px;
+  margin: 0;
+  color: rgba(255, 236, 202, 0.5);
+  font-family: Inter, "Segoe UI", sans-serif;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.access-form {
+  width: min(500px, 100%);
+  margin-top: 42px;
+}
+
+.access-form label {
+  display: block;
+  margin-bottom: 9px;
+  color: rgba(255, 220, 157, 0.55);
+  font-size: 8px;
+}
+
+.access-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 218, 151, 0.2);
+  background: rgba(0, 0, 0, 0.32);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.access-input-wrap:focus-within {
+  border-color: rgba(246, 190, 91, 0.75);
+  box-shadow: 0 0 0 1px rgba(246, 190, 91, 0.15), 0 0 26px rgba(246, 180, 60, 0.07);
+}
+
+.access-input-wrap.has-error {
+  border-color: rgba(215, 69, 47, 0.7);
+}
+
+.access-input-prefix {
+  padding-left: 15px;
+  color: rgba(246, 190, 91, 0.5);
+  font-size: 10px;
+}
+
+.access-input-wrap input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 15px 15px 15px 9px;
+  color: #fff4db;
+  background: transparent;
+  font: 11px "IBM Plex Mono", "Lucida Console", monospace;
+  letter-spacing: 2px;
+}
+
+.access-input-wrap input::placeholder {
+  color: rgba(255, 231, 193, 0.2);
+}
+
+.access-submit {
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(246, 190, 91, 0.42);
+  color: #ffd889;
+  background: rgba(246, 178, 61, 0.045);
+  font: 9px "IBM Plex Mono", "Lucida Console", monospace;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.access-submit:hover:not(:disabled),
+.access-submit:focus-visible:not(:disabled) {
+  border-color: rgba(255, 210, 121, 0.85);
+  background: rgba(246, 178, 61, 0.1);
+  box-shadow: 0 0 28px rgba(246, 178, 61, 0.08);
+  outline: none;
+}
+
+.access-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.38;
+}
+
+.access-feedback {
+  min-height: 14px;
+  margin-top: 10px;
+  color: #db6750;
+  font-size: 8px;
+  opacity: 0;
+}
+
+.access-feedback.visible {
+  opacity: 1;
+}
+
+.access-footer {
+  position: absolute;
+  right: 50px;
+  bottom: 30px;
+  left: 50px;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 220, 157, 0.25);
+  font-size: 7px;
+}
+
+@media (max-width: 640px) {
+  .ultron-access-shell {
+    padding: 14px;
+    align-items: stretch;
+  }
+
+  .ultron-access-card {
+    min-height: calc(100dvh - 28px);
+    padding: 32px 24px 72px;
+  }
+
+  .access-header {
+    grid-template-columns: auto 1fr;
+  }
+
+  .access-status {
+    display: none;
+  }
+
+  .access-introduction {
+    margin-top: 64px;
+  }
+
+  .access-introduction h2 {
+    font-size: 40px;
+  }
+
+  .access-footer {
+    right: 24px;
+    bottom: 24px;
+    left: 24px;
+    gap: 12px;
+    flex-direction: column;
+  }
+}

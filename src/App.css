@@ -1,0 +1,5831 @@
+/* =========================================================
+   ULTRON — MAIN INTERFACE
+   ========================================================= */
+
+.ultron-interface {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  background:
+    radial-gradient(
+      circle at 50% 38%,
+      rgba(170, 59, 255, 0.13),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(91, 33, 182, 0.08),
+      transparent 30%
+    ),
+    #07060b;
+
+  color: #f4f0ff;
+}
+
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+.background-grid {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(170, 59, 255, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(170, 59, 255, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 55px 55px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 20%,
+    black 80%,
+    transparent
+  );
+
+  pointer-events: none;
+
+  animation: grid-drift 18s linear infinite;
+}
+
+
+@keyframes grid-drift {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(55px);
+  }
+}
+
+
+/* =========================================================
+   AMBIENT LIGHT
+   ========================================================= */
+
+.ambient-glow {
+  position: absolute;
+
+  width: 450px;
+  height: 450px;
+
+  border-radius: 50%;
+
+  filter: blur(100px);
+
+  opacity: 0.15;
+
+  pointer-events: none;
+}
+
+
+.glow-one {
+  top: -200px;
+  left: -150px;
+
+  background: #8b2be2;
+
+  animation: ambient-one 12s ease-in-out infinite;
+}
+
+
+.glow-two {
+  right: -200px;
+  bottom: -180px;
+
+  background: #5b21b6;
+
+  animation: ambient-two 15s ease-in-out infinite;
+}
+
+
+@keyframes ambient-one {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(80px, 60px);
+  }
+}
+
+
+@keyframes ambient-two {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-70px, -50px);
+  }
+}
+
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.top-bar {
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 34px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+  background: rgba(7, 6, 11, 0.72);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+
+.brand-indicator {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  background: #c084fc;
+
+  box-shadow:
+    0 0 8px #c084fc,
+    0 0 20px rgba(192, 132, 252, 0.8);
+
+  animation: indicator-pulse 2s ease-in-out infinite;
+}
+
+
+@keyframes indicator-pulse {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+
+.brand-name {
+  font-size: 15px;
+  font-weight: 700;
+
+  letter-spacing: 4px;
+
+  color: #ffffff;
+}
+
+
+.brand-subtitle {
+  margin-top: 2px;
+
+  font-size: 8px;
+  letter-spacing: 2px;
+
+  color: rgba(255, 255, 255, 0.4);
+}
+
+
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 9px;
+  letter-spacing: 2px;
+
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.system-status .ultron-mode-control {
+  margin-right: 8px;
+}
+
+.assist-ultron-switch {
+  appearance: none;
+  border: 1px solid rgba(203, 165, 255, 0.56);
+  border-radius: 999px;
+  background: rgba(96, 54, 136, 0.22);
+  color: #f8eefe;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 7px 14px;
+  margin: 0 12px 0 8px;
+  cursor: pointer;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.assist-ultron-switch:hover,
+.assist-ultron-switch:focus {
+  border-color: rgba(245, 210, 255, 0.95);
+  background: rgba(157, 86, 230, 0.34);
+  box-shadow: 0 0 16px rgba(192, 132, 252, 0.45);
+}
+
+.android-stage.mode-focus {
+  filter: saturate(1.08) brightness(1.04);
+}
+
+.android-stage.mode-night {
+  filter: brightness(0.9) saturate(0.9);
+}
+
+.android-stage.mode-diagnostic {
+  filter: saturate(1.16) brightness(1.05);
+}
+
+.android-stage.mode-combat {
+  filter: saturate(1.2) brightness(1.08);
+}
+
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #b7ffce;
+
+  box-shadow: 0 0 10px #7affaa;
+}
+
+
+.status-dot.thinking {
+  background: #d8a7ff;
+
+  box-shadow: 0 0 12px #c084fc;
+
+  animation: status-thinking 0.7s ease-in-out infinite alternate;
+}
+
+
+.status-dot.error {
+  background: #ff6b8a;
+
+  box-shadow: 0 0 12px rgba(255, 107, 138, 0.8);
+}
+
+
+@keyframes status-thinking {
+  from {
+    transform: scale(0.7);
+    opacity: 0.5;
+  }
+
+  to {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   MAIN STAGE
+   ========================================================= */
+
+/* =========================================================
+   MAIN COMMAND CENTER
+   ========================================================= */
+
+.main-stage {
+  position: relative;
+  z-index: 2;
+
+  flex: 1 1 0;
+  height: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(180px, 220px)
+    minmax(280px, 1fr)
+    minmax(180px, 220px);
+
+  grid-template-rows:
+    minmax(300px, 1fr)
+    minmax(170px, 0.55fr);
+
+  gap: 18px;
+
+  min-height: 0;
+
+  padding: 28px 30px 18px;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   HUD PANELS
+   ========================================================= */
+
+.hud-panel {
+  position: relative;
+
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid rgba(192, 132, 252, 0.14);
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.045),
+      rgba(255, 255, 255, 0.015)
+    );
+
+  backdrop-filter: blur(18px);
+
+  box-shadow:
+    inset 0 0 30px rgba(168, 85, 247, 0.025),
+    0 15px 45px rgba(0, 0, 0, 0.2);
+
+  overflow: hidden;
+}
+
+
+.hud-panel::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 18px;
+  right: 18px;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(192, 132, 252, 0.45),
+      transparent
+    );
+
+  opacity: 0.6;
+}
+
+
+/* =========================================================
+   HUD PANEL HEADER
+   ========================================================= */
+
+.hud-panel-header {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 15px 16px 12px;
+
+  font-size: 8px;
+
+  letter-spacing: 2.5px;
+
+  color: rgba(255, 255, 255, 0.48);
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.05);
+}
+
+
+.hud-indicator {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #00c8ff;
+
+  box-shadow:
+    0 0 8px rgba(0, 200, 255, 0.8);
+}
+
+
+.hud-indicator.purple {
+  background: #c084fc;
+
+  box-shadow:
+    0 0 8px rgba(192, 132, 252, 0.8);
+}
+
+
+/* =========================================================
+   TELEMETRY
+   ========================================================= */
+
+.hud-panel-body {
+  padding: 8px 16px;
+}
+
+
+.telemetry-item {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 13px 0;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.045);
+}
+
+
+.telemetry-item span {
+  font-size: 7px;
+
+  letter-spacing: 1.4px;
+
+  color: rgba(255, 255, 255, 0.28);
+}
+
+
+.telemetry-item strong {
+  font-size: 8px;
+
+  letter-spacing: 1px;
+
+  color: rgba(192, 132, 252, 0.8);
+}
+
+
+.telemetry-item .online-text {
+  color: #a7f3d0;
+
+  text-shadow:
+    0 0 8px rgba(167, 243, 208, 0.4);
+}
+
+
+/* =========================================================
+   PANEL FOOTER
+   ========================================================= */
+
+.hud-panel-footer {
+  margin-top: auto;
+
+  padding: 11px 16px;
+
+  font-size: 6px;
+
+  letter-spacing: 1.5px;
+
+  color: rgba(255, 255, 255, 0.16);
+
+  border-top:
+    1px solid rgba(255, 255, 255, 0.04);
+}
+
+
+/* =========================================================
+   CORE ZONE
+   ========================================================= */
+
+.core-zone {
+  position: relative;
+
+  min-width: 0;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid rgba(192, 132, 252, 0.08);
+
+  border-radius: 18px;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(168, 85, 247, 0.06),
+      transparent 58%
+    );
+}
+
+
+.core-zone::before,
+.core-zone::after {
+  content: "";
+
+  position: absolute;
+
+  pointer-events: none;
+}
+
+
+.core-zone::before {
+  width: 70%;
+  height: 1px;
+
+  top: 50%;
+  left: 15%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(192, 132, 252, 0.08),
+      transparent
+    );
+}
+
+
+.core-zone::after {
+  width: 1px;
+  height: 70%;
+
+  left: 50%;
+  top: 15%;
+
+  background:
+    linear-gradient(
+      180deg,
+      transparent,
+      rgba(192, 132, 252, 0.08),
+      transparent
+    );
+}
+
+
+/* =========================================================
+   MISSIONS
+   ========================================================= */
+
+.mission-empty {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 20px;
+}
+
+
+.mission-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 13px;
+
+  border:
+    1px solid rgba(192, 132, 252, 0.18);
+
+  border-radius: 12px;
+
+  color: rgba(192, 132, 252, 0.7);
+
+  background:
+    rgba(192, 132, 252, 0.04);
+
+  box-shadow:
+    0 0 25px rgba(168, 85, 247, 0.06);
+}
+
+
+.mission-title {
+  font-size: 7px;
+
+  letter-spacing: 1.8px;
+
+  color: rgba(255, 255, 255, 0.42);
+}
+
+
+.mission-description {
+  margin-top: 7px;
+
+  font-size: 9px;
+
+  color: rgba(255, 255, 255, 0.18);
+}
+
+
+/* =========================================================
+   COMMUNICATION PANEL
+   ========================================================= */
+
+.communication-panel {
+  grid-column: 1 / 4;
+
+  min-height: 0;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  border:
+    1px solid rgba(192, 132, 252, 0.13);
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.012)
+    );
+
+  backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+
+/* =========================================================
+   COMMUNICATION HEADER
+   ========================================================= */
+
+.communication-header {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 9px 15px;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.05);
+
+  font-size: 7px;
+
+  letter-spacing: 2px;
+
+  color: rgba(255, 255, 255, 0.3);
+}
+
+
+.communication-status {
+  color: rgba(167, 243, 208, 0.55);
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   CHAT INSIDE COMMAND CENTER
+   ========================================================= */
+
+.communication-panel .chat-container {
+  width: 100%;
+  flex: 1 1 0;
+  min-height: 0;
+  margin-top: 0;
+  padding: 12px 18px 14px;
+  overflow-y: auto;
+}
+
+
+.communication-panel .welcome-message {
+  margin-top: 18px;
+}
+
+
+.communication-panel .messages {
+  gap: 12px;
+}
+
+
+/* =========================================================
+   ULTRON CORE
+   ========================================================= */
+
+.ultron-core {
+  position: relative;
+
+  width: 240px;
+  height: 240px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    transform 0.6s ease,
+    filter 0.6s ease;
+}
+
+
+.ultron-core:hover {
+  transform: scale(1.03);
+}
+
+
+/* =========================================================
+   CORE RINGS
+   ========================================================= */
+
+.core-ring {
+  position: absolute;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(192, 132, 252, 0.28);
+
+  box-shadow:
+    0 0 20px rgba(168, 85, 247, 0.08),
+    inset 0 0 20px rgba(168, 85, 247, 0.05);
+
+  pointer-events: none;
+}
+
+
+.ring-one {
+  width: 150px;
+  height: 150px;
+
+  animation: rotate-clockwise 12s linear infinite;
+}
+
+
+.ring-two {
+  width: 190px;
+  height: 190px;
+
+  border-style: dashed;
+
+  opacity: 0.55;
+
+  animation: rotate-counter 18s linear infinite;
+}
+
+
+.ring-three {
+  width: 230px;
+  height: 230px;
+
+  border-color: rgba(192, 132, 252, 0.12);
+
+  animation: rotate-clockwise 25s linear infinite;
+}
+
+
+@keyframes rotate-clockwise {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@keyframes rotate-counter {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+
+/* =========================================================
+   CORE ORB
+   ========================================================= */
+
+.core-orb {
+  position: relative;
+
+  width: 105px;
+  height: 105px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #f3ddff 0%,
+      #c084fc 16%,
+      #8b35d6 42%,
+      #3c145e 70%,
+      #120a1d 100%
+    );
+
+  box-shadow:
+    0 0 15px rgba(192, 132, 252, 0.9),
+    0 0 45px rgba(168, 85, 247, 0.45),
+    0 0 90px rgba(126, 34, 206, 0.22);
+
+  animation: orb-breathe 4s ease-in-out infinite;
+}
+
+
+.core-orb::before {
+  content: "";
+
+  position: absolute;
+  inset: -12px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(216, 180, 254, 0.18);
+
+  animation: orb-ring 3s ease-in-out infinite;
+}
+
+
+.core-orb::after {
+  content: "";
+
+  position: absolute;
+
+  width: 24px;
+  height: 24px;
+
+  top: 16px;
+  left: 22px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.45);
+
+  filter: blur(10px);
+}
+
+
+@keyframes orb-breathe {
+  0%,
+  100% {
+    transform: scale(0.96);
+
+    box-shadow:
+      0 0 15px rgba(192, 132, 252, 0.8),
+      0 0 45px rgba(168, 85, 247, 0.35),
+      0 0 90px rgba(126, 34, 206, 0.18);
+  }
+
+  50% {
+    transform: scale(1.04);
+
+    box-shadow:
+      0 0 20px rgba(216, 180, 254, 1),
+      0 0 65px rgba(168, 85, 247, 0.5),
+      0 0 110px rgba(126, 34, 206, 0.25);
+  }
+}
+
+
+@keyframes orb-ring {
+  0%,
+  100% {
+    transform: scale(0.92);
+    opacity: 0.25;
+  }
+
+  50% {
+    transform: scale(1.12);
+    opacity: 0.65;
+  }
+}
+
+
+/* =========================================================
+   CORE LETTER
+   ========================================================= */
+
+.core-inner {
+  position: relative;
+  z-index: 2;
+
+  width: 55px;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.04);
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  backdrop-filter: blur(4px);
+}
+
+
+.core-inner span {
+  font-size: 28px;
+  font-weight: 700;
+
+  letter-spacing: -2px;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.9),
+    0 0 25px rgba(192, 132, 252, 0.9);
+}
+
+
+/* =========================================================
+   THINKING MODE
+   ========================================================= */
+
+.ultron-core.thinking {
+  transform: scale(1.08);
+}
+
+
+.ultron-core.thinking .ring-one {
+  animation-duration: 2.5s;
+}
+
+
+.ultron-core.thinking .ring-two {
+  animation-duration: 3.5s;
+}
+
+
+.ultron-core.thinking .ring-three {
+  animation-duration: 5s;
+}
+
+
+.ultron-core.thinking .core-orb {
+  animation:
+    orb-breathe 0.8s ease-in-out infinite,
+    thinking-glow 1.2s ease-in-out infinite;
+}
+
+
+@keyframes thinking-glow {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.45);
+  }
+}
+
+
+/* =========================================================
+   CORE LABEL
+   ========================================================= */
+
+.core-label {
+  margin-top: 8px;
+
+  text-align: center;
+}
+
+
+.core-name {
+  font-size: 18px;
+  font-weight: 700;
+
+  letter-spacing: 8px;
+
+  padding-left: 8px;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 0 15px rgba(192, 132, 252, 0.5);
+}
+
+
+.core-state {
+  margin-top: 6px;
+
+  font-size: 8px;
+
+  letter-spacing: 3px;
+
+  color: rgba(255, 255, 255, 0.35);
+}
+
+
+/* =========================================================
+   CHAT CONTAINER
+   ========================================================= */
+
+.chat-container {
+  width: min(820px, 100%);
+
+  flex: 1;
+
+  min-height: 100px;
+
+  margin-top: 25px;
+
+  overflow-y: auto;
+
+  padding: 5px 12px 20px;
+
+  scrollbar-width: thin;
+  scrollbar-color:
+    rgba(192, 132, 252, 0.35)
+    transparent;
+}
+
+
+.chat-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+
+.chat-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.chat-container::-webkit-scrollbar-thumb {
+  background: rgba(192, 132, 252, 0.3);
+
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   WELCOME
+   ========================================================= */
+
+.welcome-message {
+  text-align: center;
+
+  margin-top: 10px;
+
+  animation: welcome-in 0.8s ease both;
+}
+
+
+@keyframes welcome-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.welcome-line {
+  font-size: 8px;
+
+  letter-spacing: 3px;
+
+  color: rgba(192, 132, 252, 0.65);
+}
+
+
+.welcome-message h1 {
+  margin: 8px 0 4px;
+
+  font-size: 20px;
+
+  font-weight: 500;
+
+  letter-spacing: -0.3px;
+
+  color: rgba(255, 255, 255, 0.9);
+}
+
+
+.welcome-message p {
+  font-size: 11px;
+
+  color: rgba(255, 255, 255, 0.3);
+}
+
+
+/* =========================================================
+   MESSAGES
+   ========================================================= */
+
+.messages {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+
+.message-row {
+  display: flex;
+
+  flex-direction: column;
+
+  max-width: 76%;
+
+  animation: message-in 0.35s ease both;
+}
+
+
+@keyframes message-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.message-row.user {
+  align-self: flex-end;
+
+  align-items: flex-end;
+}
+
+
+.message-row.ultron {
+  align-self: flex-start;
+
+  align-items: flex-start;
+}
+
+
+.message-label {
+  margin-bottom: 5px;
+
+  font-size: 7px;
+
+  letter-spacing: 2px;
+
+  color: rgba(255, 255, 255, 0.28);
+}
+
+
+.message-row.ultron .message-label {
+  color: rgba(192, 132, 252, 0.65);
+}
+
+
+.message-bubble {
+  padding: 12px 16px;
+
+  border-radius: 13px;
+
+  font-size: 13px;
+
+  line-height: 1.55;
+
+  text-align: left;
+
+  color: rgba(255, 255, 255, 0.86);
+
+  background: rgba(255, 255, 255, 0.045);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+
+.message-row.user .message-bubble {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(170, 59, 255, 0.2),
+      rgba(108, 40, 217, 0.08)
+    );
+
+  border-color:
+    rgba(192, 132, 252, 0.22);
+
+  border-bottom-right-radius: 4px;
+}
+
+
+.message-row.ultron .message-bubble {
+  border-bottom-left-radius: 4px;
+}
+
+
+/* =========================================================
+   THINKING DOTS
+   ========================================================= */
+
+.thinking-message {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  min-width: 45px;
+}
+
+
+.thinking-message span {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #c084fc;
+
+  box-shadow: 0 0 8px rgba(192, 132, 252, 0.8);
+
+  animation: thinking-dot 1s infinite ease-in-out;
+}
+
+
+.thinking-message span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+
+.thinking-message span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+
+@keyframes thinking-dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   COMMAND AREA
+   ========================================================= */
+
+.command-area {
+  position: relative;
+
+  z-index: 10;
+
+  flex-shrink: 0;
+
+  width: min(820px, calc(100% - 40px));
+
+  margin: 0 auto;
+
+  padding: 12px 0 22px;
+}
+
+
+.command-bar {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  height: 54px;
+
+  padding: 0 7px 0 17px;
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.065),
+      rgba(255, 255, 255, 0.025)
+    );
+
+  border: 1px solid rgba(192, 132, 252, 0.2);
+
+  backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 15px 50px rgba(0, 0, 0, 0.35),
+    0 0 35px rgba(126, 34, 206, 0.07);
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.command-bar:focus-within {
+  border-color: rgba(192, 132, 252, 0.45);
+
+  box-shadow:
+    0 15px 50px rgba(0, 0, 0, 0.35),
+    0 0 35px rgba(168, 85, 247, 0.15);
+}
+
+.command-icon {
+  width: 25px;
+  min-width: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffbf47;
+  font-size: 17px;
+  line-height: 1;
+
+  text-shadow:
+    0 0 6px rgba(255, 191, 71, 0.55),
+    0 0 14px rgba(255, 145, 0, 0.3);
+}
+
+.command-bar input {
+  flex: 1;
+
+  height: 100%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 13px;
+}
+
+
+.command-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+
+.command-bar input:disabled {
+  opacity: 0.5;
+}
+
+
+.send-button {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(192, 132, 252, 0.2);
+
+  border-radius: 11px;
+
+  background: rgba(192, 132, 252, 0.12);
+
+  color: #d8b4fe;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.send-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  background: rgba(192, 132, 252, 0.25);
+
+  box-shadow:
+    0 0 20px rgba(192, 132, 252, 0.2);
+}
+
+
+.send-button:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+
+.send-button:disabled {
+  opacity: 0.25;
+
+  cursor: default;
+}
+
+
+.send-button span {
+  font-size: 15px;
+
+  transform: translateX(1px);
+}
+
+
+.command-hint {
+  margin-top: 8px;
+
+  text-align: center;
+
+  font-size: 7px;
+
+  letter-spacing: 2px;
+
+  color: rgba(255, 255, 255, 0.18);
+}
+
+/* =========================================================
+   SPEAKING STATE
+   ========================================================= */
+
+.ultron-core.speaking .core-ring {
+  animation-duration: 1.2s;
+}
+
+.ultron-core.speaking .ring-one {
+  transform: scale(1.08);
+}
+
+.ultron-core.speaking .ring-two {
+  transform: scale(1.15);
+}
+
+.ultron-core.speaking .ring-three {
+  transform: scale(1.22);
+}
+
+.ultron-core.speaking .core-orb {
+  animation: ultron-speaking-pulse 0.8s ease-in-out infinite;
+}
+
+@keyframes ultron-speaking-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+
+}
+
+/* =========================================================
+   STOP SPEAKING BUTTON
+   ========================================================= */
+
+.stop-speaking-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  margin: 0 auto 10px;
+
+  padding: 8px 14px;
+
+  border: 1px solid rgba(192, 132, 252, 0.35);
+  border-radius: 8px;
+
+  background: rgba(192, 132, 252, 0.08);
+
+  color: rgba(230, 225, 245, 0.85);
+
+  font-size: 11px;
+  letter-spacing: 1.5px;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.stop-speaking-button:hover {
+  background: rgba(192, 132, 252, 0.15);
+  border-color: rgba(192, 132, 252, 0.6);
+  transform: translateY(-1px);
+}
+
+.stop-speaking-button:active {
+  transform: translateY(0);
+}
+
+.stop-speaking-button span {
+  font-size: 9px;
+}
+
+/* ==================================================
+   ULTRON — MICROPHONE / EARS CONTROL
+================================================== */
+
+.microphone-button {
+  position: relative;
+
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid rgba(0, 200, 255, 0.28);
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(0, 200, 255, 0.12),
+      rgba(0, 18, 30, 0.8)
+    );
+
+  color: #00c8ff;
+
+  box-shadow:
+    0 0 12px rgba(0, 200, 255, 0.08),
+    inset 0 0 12px rgba(0, 200, 255, 0.05);
+
+  cursor: pointer;
+
+  overflow: visible;
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+
+/* ==================================================
+   IDLE HOVER
+================================================== */
+
+.microphone-button:hover:not(:disabled) {
+  transform: scale(1.06);
+
+  border-color: rgba(0, 200, 255, 0.65);
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(0, 200, 255, 0.2),
+      rgba(0, 18, 30, 0.9)
+    );
+
+  box-shadow:
+    0 0 18px rgba(0, 200, 255, 0.2),
+    inset 0 0 16px rgba(0, 200, 255, 0.08);
+}
+
+
+/* ==================================================
+   DISABLED
+================================================== */
+
+.microphone-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+
+/* ==================================================
+   CENTRAL MICROPHONE / CORE
+================================================== */
+
+.mic-core {
+  position: relative;
+
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  font-size: 17px;
+
+  color: #00c8ff;
+
+  text-shadow:
+    0 0 6px rgba(0, 200, 255, 0.8),
+    0 0 14px rgba(0, 200, 255, 0.35);
+
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease;
+}
+
+
+/* ==================================================
+   LISTENING STATE
+================================================== */
+
+.microphone-button.listening {
+  border-color: rgba(0, 220, 255, 0.9);
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(0, 210, 255, 0.25),
+      rgba(0, 25, 42, 0.92)
+    );
+
+  box-shadow:
+    0 0 18px rgba(0, 200, 255, 0.35),
+    0 0 38px rgba(0, 200, 255, 0.16),
+    inset 0 0 20px rgba(0, 200, 255, 0.1);
+
+  animation:
+    ultronMicPulse 1.35s ease-in-out infinite;
+}
+
+.microphone-button.listening .mic-core {
+  transform: scale(1.12);
+
+  color: #8deeff;
+
+  text-shadow:
+    0 0 8px rgba(0, 220, 255, 1),
+    0 0 18px rgba(0, 220, 255, 0.75),
+    0 0 30px rgba(0, 200, 255, 0.35);
+}
+
+
+/* ==================================================
+   OUTER LISTENING RIPPLES
+================================================== */
+
+.mic-ripple {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  border: 1px solid transparent;
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.microphone-button.listening .ripple-one {
+  animation:
+    ultronMicRipple 2s ease-out infinite;
+}
+
+.microphone-button.listening .ripple-two {
+  animation:
+    ultronMicRipple 2s ease-out 0.66s infinite;
+}
+
+.microphone-button.listening .ripple-three {
+  animation:
+    ultronMicRipple 2s ease-out 1.32s infinite;
+}
+
+
+/* ==================================================
+   AUDIO ACTIVITY BARS
+================================================== */
+
+.mic-bars {
+  position: absolute;
+
+  z-index: 6;
+
+  bottom: -13px;
+  left: 50%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 2px;
+
+  height: 10px;
+
+  transform:
+    translateX(-50%)
+    scaleX(0.8);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.microphone-button.listening .mic-bars {
+  opacity: 1;
+
+  transform:
+    translateX(-50%)
+    scaleX(1);
+}
+
+.mic-bars span {
+  width: 2px;
+  height: 3px;
+
+  border-radius: 999px;
+
+  background: #00c8ff;
+
+  box-shadow:
+    0 0 5px rgba(0, 200, 255, 0.8);
+
+  animation:
+    ultronMicBars 0.55s ease-in-out infinite alternate;
+}
+
+.mic-bars span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.mic-bars span:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.mic-bars span:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.mic-bars span:nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+.mic-bars span:nth-child(5) {
+  animation-delay: 0.32s;
+}
+
+
+/* ==================================================
+   MICROPHONE ANIMATIONS
+================================================== */
+
+@keyframes ultronMicPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.045);
+  }
+}
+
+
+@keyframes ultronMicRipple {
+
+  0% {
+    transform: scale(1);
+
+    opacity: 0;
+
+    border-color:
+      rgba(0, 200, 255, 0);
+  }
+
+  15% {
+    opacity: 0.7;
+
+    border-color:
+      rgba(0, 200, 255, 0.6);
+  }
+
+  100% {
+    transform: scale(2.15);
+
+    opacity: 0;
+
+    border-color:
+      rgba(0, 200, 255, 0);
+  }
+}
+
+
+@keyframes ultronMicBars {
+
+  0% {
+    height: 3px;
+  }
+
+  100% {
+    height: 10px;
+  }
+}
+
+
+/* ==================================================
+   REDUCED MOTION
+================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .microphone-button.listening,
+  .microphone-button.listening .ripple-one,
+  .microphone-button.listening .ripple-two,
+  .microphone-button.listening .ripple-three,
+  .mic-bars span {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .top-bar {
+    height: 62px;
+
+    padding: 0 18px;
+  }
+
+
+  .brand-name {
+    font-size: 13px;
+  }
+
+
+  .ultron-core {
+    width: 190px;
+    height: 190px;
+  }
+
+
+  .ring-one {
+    width: 120px;
+    height: 120px;
+  }
+
+
+  .ring-two {
+    width: 155px;
+    height: 155px;
+  }
+
+
+  .ring-three {
+    width: 185px;
+    height: 185px;
+  }
+
+
+  .core-orb {
+    width: 82px;
+    height: 82px;
+  }
+
+
+  .core-inner {
+    width: 44px;
+    height: 44px;
+  }
+
+
+  .core-inner span {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 900px) {
+
+  .main-stage {
+    grid-template-columns: 1fr 1fr;
+
+    grid-template-rows:
+      300px
+      180px
+      minmax(170px, 1fr);
+
+    padding:
+      18px 18px 12px;
+
+    gap: 12px;
+  }
+
+  .core-zone {
+    grid-column: 1 / 3;
+    grid-row: 1;
+  }
+
+  .hud-left {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .hud-right {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .communication-panel {
+    grid-column: 1 / 3;
+    grid-row: 3;
+  }
+
+  .message-row {
+    max-width: 88%;
+  }
+
+  .command-area {
+    width: calc(100% - 24px);
+
+    padding-bottom: 14px;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .main-stage {
+    grid-template-columns: 1fr;
+
+    grid-template-rows:
+      260px
+      150px
+      150px
+      minmax(180px, 1fr);
+  }
+
+  .core-zone {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .hud-left {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .hud-right {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .communication-panel {
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  .hud-panel-body {
+    padding: 4px 12px;
+  }
+
+  .telemetry-item {
+    padding: 8px 0;
+  }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+
+    scroll-behavior: auto !important;
+  }
+
+}
+
+/* ==================================================
+   ULTRON — VOICE LANGUAGE SELECTOR
+   ================================================== */
+
+.voice-language-selector {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
+  padding: 4px;
+
+  background: rgba(10, 10, 12, 0.82);
+
+  border: 1px solid rgba(255, 70, 30, 0.28);
+  border-radius: 10px;
+
+  box-shadow:
+    inset 0 0 12px rgba(255, 50, 20, 0.04),
+    0 0 12px rgba(255, 50, 20, 0.05);
+
+  backdrop-filter: blur(8px);
+}
+
+
+/* --------------------------------------------------
+   LANGUAGE BUTTON
+   -------------------------------------------------- */
+
+.voice-language {
+  position: relative;
+
+  min-width: 42px;
+  height: 30px;
+
+  padding: 0 10px;
+
+  border: 1px solid transparent;
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: rgba(255, 255, 255, 0.38);
+
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 1.2px;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+/* --------------------------------------------------
+   HOVER
+   -------------------------------------------------- */
+
+.voice-language:hover:not(:disabled) {
+  color: rgba(255, 255, 255, 0.78);
+
+  background: rgba(255, 70, 30, 0.06);
+
+  border-color: rgba(255, 70, 30, 0.18);
+}
+
+
+/* --------------------------------------------------
+   ACTIVE LANGUAGE
+   -------------------------------------------------- */
+
+.voice-language.active {
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 70, 30, 0.18),
+      rgba(255, 40, 15, 0.07)
+    );
+
+  border-color: rgba(255, 70, 30, 0.55);
+
+  box-shadow:
+    inset 0 0 10px rgba(255, 70, 30, 0.08),
+    0 0 10px rgba(255, 60, 25, 0.14);
+
+  text-shadow:
+    0 0 8px rgba(255, 80, 40, 0.5);
+}
+
+
+/* --------------------------------------------------
+   ACTIVE INDICATOR
+   -------------------------------------------------- */
+
+.voice-language.active::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: 3px;
+
+  width: 12px;
+  height: 2px;
+
+  transform: translateX(-50%);
+
+  border-radius: 2px;
+
+  background: rgba(255, 80, 40, 0.9);
+
+  box-shadow:
+    0 0 6px rgba(255, 70, 30, 0.7);
+}
+
+
+/* --------------------------------------------------
+   DISABLED
+   -------------------------------------------------- */
+
+.voice-language:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+/* --------------------------------------------------
+   URDU TYPOGRAPHY
+   -------------------------------------------------- */
+
+.voice-language-selector .voice-language:nth-child(2) {
+  font-family:
+    "Noto Nastaliq Urdu",
+    "Noto Sans Arabic",
+    "Segoe UI",
+    sans-serif;
+
+  font-size: 11px;
+
+  letter-spacing: 0;
+}
+
+/* =========================================================
+   ULTRON — LIVING SYSTEM VISUAL ENGINE
+   ========================================================= */
+
+
+/* =========================================================
+   THIRD AMBIENT GLOW
+   ========================================================= */
+
+.glow-three {
+  width: 360px;
+  height: 360px;
+
+  top: 35%;
+  right: 25%;
+
+  background: #7c3aed;
+
+  opacity: 0.08;
+
+  filter: blur(120px);
+
+  animation: ambient-three 18s ease-in-out infinite;
+}
+
+@keyframes ambient-three {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(-100px, 70px) scale(1.2);
+  }
+}
+
+
+/* =========================================================
+   GLASS DEPTH
+   ========================================================= */
+
+.command-bar,
+.chat-container,
+.top-bar {
+  position: relative;
+}
+
+
+/* subtle glass highlight */
+
+.command-bar::before,
+.chat-container::before,
+.top-bar::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 8%;
+
+  width: 84%;
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(216, 180, 254, 0.22),
+      transparent
+    );
+
+  opacity: 0.7;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   COMMAND BAR — DEEP GLASS
+   ========================================================= */
+
+.command-bar {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.075),
+      rgba(255, 255, 255, 0.025)
+    ),
+    radial-gradient(
+      circle at 15% 50%,
+      rgba(168, 85, 247, 0.08),
+      transparent 35%
+    );
+
+  box-shadow:
+    0 15px 50px rgba(0, 0, 0, 0.42),
+    0 0 35px rgba(126, 34, 206, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+
+  overflow: visible;
+}
+
+
+/* animated edge light */
+
+.command-bar::after {
+  content: "";
+
+  position: absolute;
+
+  inset: -1px;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 35%,
+      rgba(192, 132, 252, 0.28) 50%,
+      transparent 65%,
+      transparent 100%
+    );
+
+  background-size: 250% 100%;
+
+  animation: command-edge-scan 7s linear infinite;
+
+  opacity: 0.45;
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+@keyframes command-edge-scan {
+  from {
+    background-position: 250% 0;
+  }
+
+  to {
+    background-position: -250% 0;
+  }
+}
+
+
+/* =========================================================
+   MOVING ENERGY FIELD
+   ========================================================= */
+
+.energy-field {
+  position: absolute;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: 1;
+
+  opacity: 0.45;
+}
+
+
+.energy-field span {
+  position: absolute;
+
+  width: 2px;
+  height: 2px;
+
+  border-radius: 50%;
+
+  background: #c084fc;
+
+  box-shadow:
+    0 0 5px rgba(192, 132, 252, 0.8),
+    0 0 12px rgba(168, 85, 247, 0.45);
+
+  animation:
+    energy-float
+    var(--duration, 12s)
+    linear infinite;
+
+  opacity: 0;
+}
+
+
+/* individual particles */
+
+.energy-field span:nth-child(1) {
+  left: 8%;
+  top: 70%;
+  --duration: 13s;
+  animation-delay: -4s;
+}
+
+.energy-field span:nth-child(2) {
+  left: 17%;
+  top: 35%;
+  --duration: 17s;
+  animation-delay: -10s;
+}
+
+.energy-field span:nth-child(3) {
+  left: 27%;
+  top: 80%;
+  --duration: 15s;
+  animation-delay: -7s;
+}
+
+.energy-field span:nth-child(4) {
+  left: 38%;
+  top: 45%;
+  --duration: 19s;
+  animation-delay: -15s;
+}
+
+.energy-field span:nth-child(5) {
+  left: 49%;
+  top: 75%;
+  --duration: 14s;
+  animation-delay: -3s;
+}
+
+.energy-field span:nth-child(6) {
+  left: 61%;
+  top: 30%;
+  --duration: 18s;
+  animation-delay: -11s;
+}
+
+.energy-field span:nth-child(7) {
+  left: 72%;
+  top: 68%;
+  --duration: 16s;
+  animation-delay: -5s;
+}
+
+.energy-field span:nth-child(8) {
+  left: 81%;
+  top: 42%;
+  --duration: 20s;
+  animation-delay: -13s;
+}
+
+.energy-field span:nth-child(9) {
+  left: 91%;
+  top: 77%;
+  --duration: 14s;
+  animation-delay: -8s;
+}
+
+.energy-field span:nth-child(10) {
+  left: 55%;
+  top: 18%;
+  --duration: 17s;
+  animation-delay: -6s;
+}
+
+.energy-field span:nth-child(11) {
+  left: 34%;
+  top: 20%;
+  --duration: 21s;
+  animation-delay: -17s;
+}
+
+.energy-field span:nth-child(12) {
+  left: 88%;
+  top: 22%;
+  --duration: 15s;
+  animation-delay: -9s;
+}
+
+
+@keyframes energy-float {
+
+  0% {
+    transform:
+      translate3d(0, 40px, 0)
+      scale(0.4);
+
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.7;
+  }
+
+  50% {
+    transform:
+      translate3d(25px, -40px, 0)
+      scale(1);
+
+    opacity: 0.35;
+  }
+
+  85% {
+    opacity: 0.65;
+  }
+
+  100% {
+    transform:
+      translate3d(-20px, -130px, 0)
+      scale(0.2);
+
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   SYSTEM SCAN LINE
+   ========================================================= */
+
+.scan-line {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  top: 84px;
+
+  height: 1px;
+
+  z-index: 3;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(192, 132, 252, 0.12),
+      rgba(216, 180, 254, 0.32),
+      rgba(192, 132, 252, 0.12),
+      transparent
+    );
+
+  box-shadow:
+    0 0 12px rgba(192, 132, 252, 0.25);
+
+  animation:
+    system-scan
+    9s
+    ease-in-out
+    infinite;
+}
+
+@keyframes system-scan {
+
+  0% {
+    transform: translateY(0);
+
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.15;
+  }
+
+  90% {
+    opacity: 0.35;
+  }
+
+  100% {
+    transform: translateY(calc(100vh - 100px));
+
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   MAIN STAGE GLASS ATMOSPHERE
+   ========================================================= */
+
+.main-stage::before {
+  content: "";
+
+  position: absolute;
+
+  width: 650px;
+  height: 350px;
+
+  top: 70px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(168, 85, 247, 0.07),
+      transparent 70%
+    );
+
+  filter: blur(20px);
+
+  pointer-events: none;
+
+  animation:
+    stage-breathe
+    8s
+    ease-in-out
+    infinite;
+}
+
+@keyframes stage-breathe {
+
+  0%,
+  100% {
+    opacity: 0.55;
+
+    transform:
+      translateX(-50%)
+      scale(0.95);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      scale(1.08);
+  }
+}
+
+
+/* =========================================================
+   ULTRON CORE — ENERGY FIELD
+   ========================================================= */
+
+.ultron-core::before {
+  content: "";
+
+  position: absolute;
+
+  width: 280px;
+  height: 280px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168, 85, 247, 0.12),
+      rgba(168, 85, 247, 0.035) 40%,
+      transparent 70%
+    );
+
+  filter: blur(12px);
+
+  animation:
+    core-atmosphere
+    5s
+    ease-in-out
+    infinite;
+
+  pointer-events: none;
+}
+
+
+@keyframes core-atmosphere {
+
+  0%,
+  100% {
+    transform: scale(0.9);
+
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: scale(1.15);
+
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   CORE RINGS — MORE ALIVE
+   ========================================================= */
+
+.ring-one {
+  box-shadow:
+    0 0 20px rgba(168, 85, 247, 0.1),
+    inset 0 0 20px rgba(168, 85, 247, 0.05);
+
+  animation:
+    rotate-clockwise 12s linear infinite,
+    ring-breathe-one 4s ease-in-out infinite;
+}
+
+
+.ring-two {
+  box-shadow:
+    0 0 25px rgba(192, 132, 252, 0.08);
+
+  animation:
+    rotate-counter 18s linear infinite,
+    ring-breathe-two 5s ease-in-out infinite;
+}
+
+
+.ring-three {
+  box-shadow:
+    0 0 30px rgba(168, 85, 247, 0.06);
+
+  animation:
+    rotate-clockwise 25s linear infinite,
+    ring-breathe-three 7s ease-in-out infinite;
+}
+
+
+@keyframes ring-breathe-one {
+
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+
+@keyframes ring-breathe-two {
+
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 0.75;
+  }
+}
+
+
+@keyframes ring-breathe-three {
+
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+
+  50% {
+    opacity: 0.55;
+  }
+}
+
+
+/* =========================================================
+   CORE ORB — DEEPER ENERGY
+   ========================================================= */
+
+.core-orb {
+  box-shadow:
+    0 0 18px rgba(192, 132, 252, 0.95),
+    0 0 50px rgba(168, 85, 247, 0.5),
+    0 0 100px rgba(126, 34, 206, 0.28),
+    inset 0 0 25px rgba(255, 255, 255, 0.08);
+
+  animation:
+    orb-breathe 4s ease-in-out infinite,
+    core-light-shift 6s ease-in-out infinite;
+}
+
+
+@keyframes core-light-shift {
+
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.12);
+  }
+}
+
+
+/* =========================================================
+   CORE ORB ENERGY RING
+   ========================================================= */
+
+.core-orb::before {
+  box-shadow:
+    0 0 18px rgba(192, 132, 252, 0.18);
+}
+
+
+/* =========================================================
+   CORE LABEL
+   ========================================================= */
+
+.core-name {
+  animation:
+    ultron-name-glow
+    4s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes ultron-name-glow {
+
+  0%,
+  100% {
+    text-shadow:
+      0 0 12px rgba(192, 132, 252, 0.35);
+  }
+
+  50% {
+    text-shadow:
+      0 0 20px rgba(192, 132, 252, 0.7),
+      0 0 35px rgba(168, 85, 247, 0.25);
+  }
+}
+
+
+/* =========================================================
+   PANELS — GLASS HIGHLIGHT
+   ========================================================= */
+
+.message-bubble,
+.voice-language-selector,
+.stop-speaking-button {
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+
+/* =========================================================
+   INPUT — FOCUS ENERGY
+   ========================================================= */
+
+.command-bar input:focus {
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.08);
+}
+
+
+/* =========================================================
+   SEND BUTTON — ENERGY CORE
+   ========================================================= */
+
+.send-button {
+  position: relative;
+
+  overflow: hidden;
+}
+
+
+.send-button::before {
+  content: "";
+
+  position: absolute;
+
+  width: 70px;
+  height: 70px;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(192, 132, 252, 0.15),
+      transparent 65%
+    );
+
+  animation:
+    send-pulse
+    3s
+    ease-in-out
+    infinite;
+
+  pointer-events: none;
+}
+
+
+@keyframes send-pulse {
+
+  0%,
+  100% {
+    transform:
+      translate(-50%, -50%)
+      scale(0.8);
+
+    opacity: 0.3;
+  }
+
+  50% {
+    transform:
+      translate(-50%, -50%)
+      scale(1.25);
+
+    opacity: 0.8;
+  }
+}
+
+
+.send-button span {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* =========================================================
+   LANGUAGE SELECTOR — GLASS
+   ========================================================= */
+
+.voice-language-selector {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.018)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 0 20px rgba(126, 34, 206, 0.06);
+}
+
+
+/* =========================================================
+   MICROPHONE — SYSTEM ENERGY
+   ========================================================= */
+
+.microphone-button {
+  box-shadow:
+    0 0 15px rgba(0, 200, 255, 0.1),
+    0 0 35px rgba(0, 200, 255, 0.04),
+    inset 0 0 14px rgba(0, 200, 255, 0.06);
+
+  animation:
+    microphone-idle 4s ease-in-out infinite;
+}
+
+
+@keyframes microphone-idle {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 12px rgba(0, 200, 255, 0.08),
+      inset 0 0 12px rgba(0, 200, 255, 0.05);
+  }
+
+  50% {
+    box-shadow:
+      0 0 20px rgba(0, 200, 255, 0.15),
+      0 0 35px rgba(0, 200, 255, 0.04),
+      inset 0 0 16px rgba(0, 200, 255, 0.08);
+  }
+}
+
+
+/* =========================================================
+   STATUS DOT — ALIVE
+   ========================================================= */
+
+.status-dot {
+  animation:
+    status-alive
+    3s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes status-alive {
+
+  0%,
+  100% {
+    opacity: 0.65;
+
+    box-shadow:
+      0 0 6px rgba(122, 255, 170, 0.5);
+  }
+
+  50% {
+    opacity: 1;
+
+    box-shadow:
+      0 0 12px rgba(122, 255, 170, 0.95),
+      0 0 20px rgba(122, 255, 170, 0.3);
+  }
+}
+
+
+/* =========================================================
+   MESSAGE GLASS HOVER
+   ========================================================= */
+
+.message-bubble {
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+.message-bubble:hover {
+  border-color:
+    rgba(192, 132, 252, 0.18);
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(168, 85, 247, 0.04);
+}
+
+
+/* =========================================================
+   TOP BAR GLASS
+   ========================================================= */
+
+.top-bar {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10, 8, 16, 0.84),
+      rgba(7, 6, 11, 0.68)
+    );
+
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.18),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.025);
+}
+
+
+/* =========================================================
+   COMMAND AREA — FLOATING CONSOLE
+   ========================================================= */
+
+.command-area {
+  filter:
+    drop-shadow(
+      0 15px 35px rgba(0, 0, 0, 0.25)
+    );
+}
+
+
+/* =========================================================
+   SYSTEM STATUS TEXT
+   ========================================================= */
+
+.system-status {
+  animation:
+    status-text-breathe
+    5s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes status-text-breathe {
+
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   ULTRON CORE — SPEAKING ENHANCEMENT
+   ========================================================= */
+
+.ultron-core.speaking::after {
+  content: "";
+
+  position: absolute;
+
+  width: 260px;
+  height: 260px;
+
+  border-radius: 50%;
+
+  border:
+    1px solid rgba(192, 132, 252, 0.15);
+
+  box-shadow:
+    0 0 40px rgba(168, 85, 247, 0.12);
+
+  animation:
+    speaking-wave
+    1.2s
+    ease-out
+    infinite;
+
+  pointer-events: none;
+}
+
+
+@keyframes speaking-wave {
+
+  0% {
+    transform: scale(0.75);
+
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1.35);
+
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   ULTRON CORE — THINKING ENHANCEMENT
+   ========================================================= */
+
+.ultron-core.thinking::after {
+  content: "";
+
+  position: absolute;
+
+  width: 250px;
+  height: 250px;
+
+  border-radius: 50%;
+
+  background:
+    conic-gradient(
+      transparent 0deg,
+      rgba(192, 132, 252, 0.3) 60deg,
+      transparent 110deg,
+      transparent 360deg
+    );
+
+  mask-image:
+    radial-gradient(
+      circle,
+      transparent 57%,
+      black 58%,
+      black 59%,
+      transparent 60%
+    );
+
+  animation:
+    thinking-scan
+    1.5s
+    linear
+    infinite;
+
+  pointer-events: none;
+}
+
+
+@keyframes thinking-scan {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .energy-field span,
+  .scan-line,
+  .glow-three,
+  .main-stage::before,
+  .ultron-core::before,
+  .core-name,
+  .microphone-button,
+  .status-dot,
+  .system-status,
+  .send-button::before,
+  .command-bar::after,
+  .ultron-core.speaking::after,
+  .ultron-core.thinking::after {
+    animation: none !important;
+  }
+
+}
+
+/* =========================================================
+   ULTRON — LIVING GLASS SYSTEM
+   Ambient motion + holographic glass layer
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL GLASS ENHANCEMENT
+   ========================================================= */
+
+.top-bar,
+.command-bar,
+.chat-container,
+.system-panel,
+.missions-panel,
+.communication-panel {
+  position: relative;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.045),
+      rgba(255, 255, 255, 0.012)
+    );
+
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
+}
+
+
+/* =========================================================
+   GLASS LIGHT SWEEP
+   ========================================================= */
+
+.top-bar::after,
+.command-bar::after,
+.system-panel::after,
+.missions-panel::after,
+.communication-panel::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -120%;
+
+  width: 80%;
+  height: 100%;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(192, 132, 252, 0.035),
+      rgba(255, 255, 255, 0.025),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  animation: glass-light-sweep 14s ease-in-out infinite;
+}
+
+
+@keyframes glass-light-sweep {
+
+  0% {
+    left: -120%;
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  28% {
+    left: 140%;
+    opacity: 0;
+  }
+
+  100% {
+    left: 140%;
+    opacity: 0;
+  }
+
+}
+
+
+/* =========================================================
+   LIVING BACKGROUND
+   ========================================================= */
+
+.ultron-interface::before {
+  content: "";
+
+  position: absolute;
+
+  width: 700px;
+  height: 700px;
+
+  left: 50%;
+  top: 42%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168, 85, 247, 0.10),
+      rgba(126, 34, 206, 0.045) 30%,
+      transparent 70%
+    );
+
+  filter: blur(30px);
+
+  pointer-events: none;
+
+  animation: central-ambient-pulse 8s ease-in-out infinite;
+}
+
+
+@keyframes central-ambient-pulse {
+
+  0%,
+  100% {
+    transform:
+      translate(-50%, -50%)
+      scale(0.92);
+
+    opacity: 0.55;
+  }
+
+  50% {
+    transform:
+      translate(-50%, -50%)
+      scale(1.08);
+
+    opacity: 1;
+  }
+
+}
+
+
+/* =========================================================
+   SECONDARY AMBIENT LIGHT MOVEMENT
+   ========================================================= */
+
+.glow-one {
+  animation:
+    ambient-one 12s ease-in-out infinite,
+    ambient-flicker 7s ease-in-out infinite;
+}
+
+
+.glow-two {
+  animation:
+    ambient-two 15s ease-in-out infinite,
+    ambient-flicker 9s ease-in-out infinite reverse;
+}
+
+
+@keyframes ambient-flicker {
+
+  0%,
+  100% {
+    opacity: 0.10;
+  }
+
+  50% {
+    opacity: 0.20;
+  }
+
+}
+
+
+/* =========================================================
+   CORE — ALWAYS ALIVE
+   ========================================================= */
+
+.ultron-core {
+  animation: core-presence 6s ease-in-out infinite;
+}
+
+
+@keyframes core-presence {
+
+  0%,
+  100% {
+    filter:
+      drop-shadow(
+        0 0 0 rgba(192, 132, 252, 0)
+      );
+  }
+
+  50% {
+    filter:
+      drop-shadow(
+        0 0 22px rgba(168, 85, 247, 0.12)
+      );
+  }
+
+}
+
+
+/* =========================================================
+   CORE ORB — ADDITIONAL ENERGY
+   ========================================================= */
+
+.core-orb {
+  position: relative;
+
+  isolation: isolate;
+}
+
+
+.core-orb::before {
+  box-shadow:
+    0 0 20px rgba(192, 132, 252, 0.18),
+    0 0 45px rgba(168, 85, 247, 0.08);
+
+  animation:
+    orb-ring 3s ease-in-out infinite,
+    energy-ring-pulse 5s ease-in-out infinite;
+}
+
+
+@keyframes energy-ring-pulse {
+
+  0%,
+  100% {
+    border-color:
+      rgba(216, 180, 254, 0.12);
+  }
+
+  50% {
+    border-color:
+      rgba(216, 180, 254, 0.35);
+  }
+
+}
+
+
+/* =========================================================
+   CORE RING ENERGY
+   ========================================================= */
+
+.ring-one {
+  box-shadow:
+    0 0 18px rgba(192, 132, 252, 0.08),
+    inset 0 0 18px rgba(168, 85, 247, 0.04);
+
+  animation:
+    rotate-clockwise 12s linear infinite,
+    ring-energy 5s ease-in-out infinite;
+}
+
+
+.ring-two {
+  box-shadow:
+    0 0 25px rgba(192, 132, 252, 0.06);
+
+  animation:
+    rotate-counter 18s linear infinite,
+    ring-energy 7s ease-in-out infinite reverse;
+}
+
+
+.ring-three {
+  animation:
+    rotate-clockwise 25s linear infinite,
+    ring-energy 9s ease-in-out infinite;
+}
+
+
+@keyframes ring-energy {
+
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 0.75;
+  }
+
+}
+
+
+/* =========================================================
+   CORE LABEL — HOLOGRAPHIC BREATH
+   ========================================================= */
+
+.core-name {
+  animation: label-breathe 5s ease-in-out infinite;
+}
+
+
+@keyframes label-breathe {
+
+  0%,
+  100% {
+    text-shadow:
+      0 0 12px rgba(192, 132, 252, 0.35);
+  }
+
+  50% {
+    text-shadow:
+      0 0 22px rgba(192, 132, 252, 0.65),
+      0 0 40px rgba(168, 85, 247, 0.15);
+  }
+
+}
+
+
+/* =========================================================
+   CHAT GLASS
+   ========================================================= */
+
+.chat-container {
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.018),
+      rgba(168, 85, 247, 0.012)
+    );
+
+  border: 1px solid rgba(192, 132, 252, 0.055);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.025),
+    0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   MESSAGE GLASS
+   ========================================================= */
+
+.message-bubble {
+  position: relative;
+
+  overflow: hidden;
+
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+
+.message-bubble::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -100%;
+
+  width: 60%;
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(192, 132, 252, 0.55),
+      transparent
+    );
+
+  animation: message-scan 9s ease-in-out infinite;
+}
+
+
+@keyframes message-scan {
+
+  0%,
+  65% {
+    left: -100%;
+  }
+
+  80% {
+    left: 130%;
+  }
+
+  100% {
+    left: 130%;
+  }
+
+}
+
+
+.message-row.ultron .message-bubble {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.025),
+    0 8px 35px rgba(126, 34, 206, 0.06);
+}
+
+
+.message-row.user .message-bubble {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.025),
+    0 8px 35px rgba(126, 34, 206, 0.08);
+}
+
+
+/* =========================================================
+   COMMAND BAR — PREMIUM GLASS
+   ========================================================= */
+
+.command-bar {
+  overflow: hidden;
+
+  box-shadow:
+    0 15px 50px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 0 40px rgba(126, 34, 206, 0.08);
+}
+
+
+.command-bar::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: inherit;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent 20%,
+      rgba(192, 132, 252, 0.035) 45%,
+      transparent 70%
+    );
+
+  background-size: 250% 100%;
+
+  animation: command-glass-flow 8s linear infinite;
+}
+
+
+@keyframes command-glass-flow {
+
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -50% 0;
+  }
+
+}
+
+
+/* =========================================================
+   LANGUAGE SELECTOR — FLOATING GLASS
+   ========================================================= */
+
+.voice-language-selector {
+  position: relative;
+
+  z-index: 5;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(10, 10, 12, 0.65)
+    );
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 0 20px rgba(255, 50, 20, 0.04);
+}
+
+
+/* =========================================================
+   MICROPHONE — ENERGY CORE
+   ========================================================= */
+
+.microphone-button {
+  z-index: 5;
+
+  box-shadow:
+    0 0 15px rgba(0, 200, 255, 0.08),
+    inset 0 0 15px rgba(0, 200, 255, 0.05),
+    0 0 0 rgba(0, 200, 255, 0);
+
+  animation: microphone-idle 4s ease-in-out infinite;
+}
+
+
+@keyframes microphone-idle {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 12px rgba(0, 200, 255, 0.06),
+      inset 0 0 12px rgba(0, 200, 255, 0.04);
+  }
+
+  50% {
+    box-shadow:
+      0 0 20px rgba(0, 200, 255, 0.12),
+      inset 0 0 16px rgba(0, 200, 255, 0.07);
+  }
+
+}
+
+
+/* =========================================================
+   SEND BUTTON — IDLE ENERGY
+   ========================================================= */
+
+.send-button {
+  position: relative;
+
+  overflow: hidden;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+
+.send-button::before {
+  content: "";
+
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  left: -120%;
+  top: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.08),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  animation: send-sweep 6s ease-in-out infinite;
+}
+
+
+@keyframes send-sweep {
+
+  0%,
+  65% {
+    left: -120%;
+  }
+
+  85% {
+    left: 120%;
+  }
+
+  100% {
+    left: 120%;
+  }
+
+}
+
+
+/* =========================================================
+   STATUS — SUBTLE LIVE SIGNAL
+   ========================================================= */
+
+.status-dot {
+  animation:
+    status-live 3s ease-in-out infinite;
+}
+
+
+@keyframes status-live {
+
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+
+}
+
+
+/* =========================================================
+   WELCOME SCREEN — HOLOGRAPHIC ATMOSPHERE
+   ========================================================= */
+
+.welcome-message {
+  position: relative;
+}
+
+
+.welcome-message::before {
+  content: "";
+
+  position: absolute;
+
+  width: 280px;
+  height: 120px;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(168, 85, 247, 0.07),
+      transparent 70%
+    );
+
+  filter: blur(20px);
+
+  pointer-events: none;
+
+  animation: welcome-glow 5s ease-in-out infinite;
+}
+
+
+@keyframes welcome-glow {
+
+  0%,
+  100% {
+    opacity: 0.4;
+    transform:
+      translate(-50%, -50%)
+      scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform:
+      translate(-50%, -50%)
+      scale(1.1);
+  }
+
+}
+
+
+/* =========================================================
+   SYSTEM GRID — MORE DEPTH
+   ========================================================= */
+
+.background-grid {
+  opacity: 0.8;
+
+  animation:
+    grid-drift 18s linear infinite,
+    grid-breathe 8s ease-in-out infinite;
+}
+
+
+@keyframes grid-breathe {
+
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+
+  50% {
+    opacity: 0.9;
+  }
+
+}
+
+
+/* =========================================================
+   INTERACTIVE GLASS RESPONSE
+   ========================================================= */
+
+.command-bar:hover {
+  border-color:
+    rgba(192, 132, 252, 0.28);
+
+  box-shadow:
+    0 18px 55px rgba(0, 0, 0, 0.38),
+    0 0 45px rgba(126, 34, 206, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+
+.voice-language-selector:hover {
+  border-color:
+    rgba(255, 70, 30, 0.38);
+
+  box-shadow:
+    inset 0 0 15px rgba(255, 50, 20, 0.05),
+    0 0 18px rgba(255, 50, 20, 0.07);
+}
+
+
+/* =========================================================
+   FOCUS ENERGY
+   ========================================================= */
+
+.command-bar input:focus {
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.12);
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .ultron-interface::before,
+  .ultron-core,
+  .core-orb,
+  .core-name,
+  .microphone-button,
+  .welcome-message::before,
+  .background-grid,
+  .status-dot,
+  .command-bar::before,
+  .send-button::before,
+  .glass-light-sweep,
+  .message-bubble::before {
+    animation: none !important;
+  }
+
+}
+
+/* =========================================================
+   ULTRON — FOCUS CONTROL
+   ========================================================= */
+
+.voice-language:focus {
+  outline: none;
+}
+
+.voice-language:focus-visible {
+  outline: 1px solid rgba(192, 132, 252, 0.55);
+  outline-offset: 2px;
+  box-shadow:
+    0 0 12px rgba(192, 132, 252, 0.18);
+}
+
+/* =========================================================
+   MISSION CONTROL — TABS & BADGE
+   ========================================================= */
+
+.mission-count-badge {
+  margin-left: auto;
+
+  padding: 2px 6px;
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  color: #0a0612;
+
+  background: #c084fc;
+
+  border-radius: 999px;
+
+  box-shadow: 0 0 10px rgba(192, 132, 252, 0.5);
+}
+
+
+.mission-tabs {
+  display: flex;
+
+  gap: 6px;
+
+  padding: 0 16px 10px;
+}
+
+
+.mission-tab {
+  flex: 1;
+
+  padding: 6px 0;
+
+  font-size: 7px;
+  font-weight: 600;
+
+  letter-spacing: 1.5px;
+
+  color: rgba(255, 255, 255, 0.35);
+
+  background: rgba(255, 255, 255, 0.03);
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+
+.mission-tab:hover {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+
+.mission-tab.active {
+  color: #f3e8ff;
+
+  background: rgba(192, 132, 252, 0.12);
+
+  border-color: rgba(192, 132, 252, 0.35);
+
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
+}
+
+
+/* =========================================================
+   MISSION LIST
+   ========================================================= */
+
+.mission-list {
+  flex: 1;
+
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  padding: 0 12px 12px;
+
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(192, 132, 252, 0.3) transparent;
+}
+
+
+.mission-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+
+.mission-list::-webkit-scrollbar-thumb {
+  background: rgba(192, 132, 252, 0.3);
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   MISSION CARD
+   ========================================================= */
+
+.mission-card {
+  position: relative;
+
+  padding: 10px 11px;
+
+  border-radius: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.015)
+    );
+
+  backdrop-filter: blur(10px);
+
+  animation: mission-card-in 0.35s ease both;
+
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.mission-card:hover {
+  transform: translateY(-1px);
+
+  border-color: rgba(192, 132, 252, 0.25);
+}
+
+
+@keyframes mission-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.mission-card-top {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  margin-bottom: 6px;
+}
+
+
+.mission-priority-dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.3);
+
+  flex-shrink: 0;
+}
+
+
+.mission-card-priority {
+  font-size: 6px;
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  color: rgba(255, 255, 255, 0.35);
+}
+
+
+.mission-card-title {
+  font-size: 11px;
+  line-height: 1.4;
+
+  color: rgba(255, 255, 255, 0.88);
+
+  word-break: break-word;
+}
+
+
+.mission-card-due {
+  margin-top: 6px;
+
+  font-size: 8px;
+  letter-spacing: 0.5px;
+
+  color: rgba(255, 255, 255, 0.35);
+}
+
+
+.mission-card-due.overdue {
+  color: #ff8fa3;
+}
+
+
+.mission-card-actions {
+  display: flex;
+
+  gap: 6px;
+
+  margin-top: 9px;
+}
+
+
+.mission-action {
+  width: 22px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 10px;
+
+  border-radius: 6px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: rgba(255, 255, 255, 0.03);
+
+  color: rgba(255, 255, 255, 0.5);
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+
+.mission-action:hover {
+  background: rgba(255, 255, 255, 0.08);
+
+  color: #ffffff;
+}
+
+
+.mission-action.complete:hover {
+  color: #86efac;
+
+  border-color: rgba(134, 239, 172, 0.4);
+
+  background: rgba(134, 239, 172, 0.08);
+}
+
+
+.mission-action.cancel:hover,
+.mission-action.delete:hover {
+  color: #ff8fa3;
+
+  border-color: rgba(255, 143, 163, 0.4);
+
+  background: rgba(255, 143, 163, 0.08);
+}
+
+
+/* =========================================================
+   PRIORITY VISUAL HIERARCHY
+   ========================================================= */
+
+.mission-card.priority-low .mission-priority-dot {
+  background: #94a3b8;
+}
+
+
+.mission-card.priority-normal .mission-priority-dot {
+  background: #60a5fa;
+
+  box-shadow: 0 0 6px rgba(96, 165, 250, 0.6);
+}
+
+
+.mission-card.priority-high {
+  border-color: rgba(251, 191, 36, 0.2);
+}
+
+
+.mission-card.priority-high .mission-priority-dot {
+  background: #fbbf24;
+
+  box-shadow: 0 0 6px rgba(251, 191, 36, 0.6);
+}
+
+
+.mission-card.priority-critical {
+  border-color: rgba(248, 113, 113, 0.3);
+
+  box-shadow: 0 0 20px rgba(248, 113, 113, 0.08);
+}
+
+
+.mission-card.priority-critical .mission-priority-dot {
+  background: #f87171;
+
+  box-shadow: 0 0 8px rgba(248, 113, 113, 0.7);
+
+  animation: mission-critical-pulse 1.4s ease-in-out infinite;
+}
+
+
+@keyframes mission-critical-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(1.3);
+  }
+}
+
+
+.mission-card.overdue {
+  border-color: rgba(255, 143, 163, 0.35);
+}
+
+/* =========================================================
+   MORE ROOM FOR A FULL-BODY FIGURE (desktop)
+   ========================================================= */
+
+.main-stage {
+  grid-template-rows:
+    minmax(440px, 1fr)
+    minmax(150px, 0.4fr);
+}
+
+.core-zone {
+  border-color: rgba(255, 90, 100, 0.12);
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 60, 70, 0.07),
+      transparent 58%
+    );
+}
+
+.core-name {
+  text-shadow: 0 0 15px rgba(255, 70, 80, 0.5);
+}
+
+
+/* =========================================================
+   ULTRON CORE — STAGE
+   ========================================================= */
+
+.android-stage {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 280px;
+  height: 280px;
+
+  max-height: 70%;
+}
+
+.android-stage.state-scanning {
+  filter: saturate(1.18) brightness(1.08);
+}
+
+.android-stage.state-scanning::after {
+  animation: ultron-scan-pulse 1.1s ease-in-out infinite;
+  border-color: rgba(103, 232, 249, 0.45);
+  box-shadow: 0 0 24px rgba(103, 232, 249, 0.18);
+}
+
+@keyframes ultron-scan-pulse {
+  0%, 100% { opacity: 0.18; transform: scale(0.98); }
+  50% { opacity: 0.65; transform: scale(1.02); }
+}
+
+
+/* =========================================================
+   ULTRON CORE — ROOT FIGURE
+   ========================================================= */
+
+.android-figure {
+  position: relative;
+  z-index: 3;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+
+  filter: drop-shadow(0 0 30px rgba(255, 40, 60, 0.25));
+
+  animation: core-idle-breathe 5s ease-in-out infinite;
+}
+
+@keyframes core-idle-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.015); }
+}
+
+
+/* Ambient glow behind everything */
+
+.android-aura {
+  fill: rgba(255, 47, 66, 0.06);
+
+  filter: blur(34px);
+
+  animation: android-aura-breathe 4.5s ease-in-out infinite;
+
+  transform-origin: 160px 160px;
+}
+
+@keyframes android-aura-breathe {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.08); }
+}
+
+
+/* HUD corner brackets + crosshairs */
+
+.core-corner {
+  fill: none;
+  stroke: rgba(255, 90, 100, 0.45);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.core-crosshair {
+  stroke: rgba(255, 90, 100, 0.35);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+
+/* Outer HUD ring + tick marks */
+
+.core-ring-outer {
+  transform-origin: 160px 160px;
+  animation: core-rotate 42s linear infinite;
+}
+
+.core-ring-track {
+  fill: none;
+  stroke: rgba(255, 90, 100, 0.3);
+  stroke-width: 1;
+}
+
+.core-tick {
+  stroke: rgba(255, 90, 100, 0.35);
+  stroke-width: 1;
+}
+
+.core-tick-major {
+  stroke-width: 2.5;
+}
+
+
+/* Middle dashed data ring, rotates opposite direction */
+
+.core-ring-middle {
+  fill: none;
+  stroke: #ff4d5e;
+  stroke-width: 1.4;
+  stroke-dasharray: 3 9;
+
+  opacity: 0.55;
+
+  transform-origin: 160px 160px;
+  animation: core-rotate-reverse 20s linear infinite;
+}
+
+
+/* Orbiting nodes */
+
+.core-orbit {
+  transform-origin: 160px 160px;
+  animation: core-rotate-reverse 16s linear infinite;
+}
+
+.android-joint {
+  fill: #ff3b4e;
+
+  filter: drop-shadow(0 0 6px rgba(255, 59, 78, 0.9));
+
+  animation: android-joint-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes android-joint-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+
+/* Arc reactor assembly */
+
+.reactor {
+  transform-origin: 160px 160px;
+
+  animation: core-idle-breathe 5s ease-in-out infinite;
+}
+
+.reactor-housing {
+  fill: none;
+  stroke: #4a505c;
+  stroke-width: 4;
+
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.6));
+}
+
+.reactor-rivet {
+  fill: #7c8494;
+
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.7));
+}
+
+.reactor-turbine {
+  transform-origin: 160px 160px;
+  animation: core-rotate 24s linear infinite;
+}
+
+.reactor-blade {
+  stroke: rgba(255, 90, 100, 0.35);
+  stroke-width: 1;
+
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.7));
+}
+
+.reactor-ring {
+  fill: none;
+  stroke: #ff4d5e;
+
+  opacity: 0.5;
+}
+
+.reactor-ring-mid {
+  stroke-width: 1.6;
+
+  animation: android-visor-flicker 5s ease-in-out infinite;
+}
+
+.reactor-ring-inner {
+  stroke-width: 1.2;
+
+  animation: android-joint-pulse 2.6s ease-in-out infinite;
+}
+
+
+/* Inner energy source */
+
+.android-core {
+  fill: #ff2f42;
+  stroke: #ffd6d6;
+  stroke-width: 1;
+
+  filter: drop-shadow(0 0 12px rgba(255, 47, 66, 0.9));
+
+  animation: android-core-pulse 2.2s ease-in-out infinite;
+
+  transform-origin: 160px 160px;
+}
+
+@keyframes android-core-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+
+.android-core-glow {
+  animation: android-core-glow-pulse 2.2s ease-in-out infinite;
+
+  transform-origin: 160px 160px;
+}
+
+@keyframes android-core-glow-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.15); }
+}
+
+
+/* Major ticks flash like a status readout */
+
+.android-visor {
+  stroke: #ff5c6c;
+
+  filter: drop-shadow(0 0 8px rgba(255, 92, 108, 0.9));
+
+  animation: android-visor-flicker 3.4s ease-in-out infinite;
+}
+
+@keyframes android-visor-flicker {
+  0%, 92%, 100% { opacity: 1; }
+  94% { opacity: 0.4; }
+  96% { opacity: 1; }
+}
+
+
+@keyframes core-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes core-rotate-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+
+/* Equalizer bars — only shown while ULTRON is speaking */
+
+.core-eq {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.core-eq-bar {
+  fill: #ff4d5e;
+  filter: drop-shadow(0 0 6px rgba(255, 77, 94, 0.8));
+
+  transform-box: fill-box;
+  transform-origin: center bottom;
+
+  animation: core-eq-bounce 0.5s ease-in-out infinite alternate;
+}
+
+.core-eq-bar:nth-child(1) { animation-delay: 0s; }
+.core-eq-bar:nth-child(2) { animation-delay: 0.12s; }
+.core-eq-bar:nth-child(3) { animation-delay: 0.05s; }
+.core-eq-bar:nth-child(4) { animation-delay: 0.18s; }
+.core-eq-bar:nth-child(5) { animation-delay: 0.08s; }
+
+@keyframes core-eq-bounce {
+  from { transform: scaleY(0.35); }
+  to { transform: scaleY(1); }
+}
+
+
+/* =========================================================
+   REACTIVE STATES
+   ========================================================= */
+
+.android-figure.state-thinking .core-ring-outer {
+  animation-duration: 6s;
+}
+
+.android-figure.state-thinking .core-ring-middle {
+  animation-duration: 3s;
+  opacity: 0.85;
+}
+
+.android-figure.state-thinking .core-orbit {
+  animation-duration: 3s;
+}
+
+.android-figure.state-thinking .android-core,
+.android-figure.state-thinking .android-core-glow {
+  animation-duration: 0.9s;
+}
+
+.android-figure.state-thinking .reactor-turbine {
+  animation-duration: 4s;
+}
+
+.android-figure.state-listening .android-visor {
+  animation: android-visor-alert 1s ease-in-out infinite;
+}
+
+@keyframes android-visor-alert {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 92, 108, 0.9)); }
+  50% { filter: drop-shadow(0 0 16px rgba(255, 92, 108, 1)); }
+}
+
+
+.android-figure.state-speaking .android-core,
+.android-figure.state-speaking .android-core-glow {
+  animation: android-core-speak 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes android-core-speak {
+  from { transform: scale(1); }
+  to { transform: scale(1.22); }
+}
+
+.android-figure.state-speaking .core-eq {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   MISSION ALERT CORE STATE
+   ========================================================= */
+
+.android-figure.state-alert {
+  animation: alert-core-breathe 1.1s ease-in-out infinite;
+  filter: drop-shadow(0 0 34px rgba(178, 105, 255, 0.5));
+}
+
+.android-figure.state-alert .core-ring-outer {
+  animation: core-rotate 5s linear infinite;
+}
+
+.android-figure.state-alert .core-ring-middle {
+  animation: core-rotate-reverse 2.5s linear infinite;
+  opacity: 1;
+}
+
+.android-figure.state-alert .core-orbit {
+  animation: core-rotate-reverse 2.8s linear infinite;
+}
+
+.android-figure.state-alert .android-core,
+.android-figure.state-alert .android-core-glow {
+  animation: alert-core-pulse 0.65s ease-in-out infinite alternate;
+}
+
+.android-figure.state-alert .reactor-turbine {
+  animation-duration: 2.5s;
+}
+
+.android-figure.state-alert .android-visor {
+  animation: alert-visor-pulse 0.7s ease-in-out infinite alternate;
+}
+
+@keyframes alert-core-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.035); }
+}
+
+@keyframes alert-core-pulse {
+  from { transform: scale(1); filter: drop-shadow(0 0 10px rgba(190, 120, 255, 0.75)); }
+  to { transform: scale(1.28); filter: drop-shadow(0 0 25px rgba(215, 170, 255, 1)); }
+}
+
+@keyframes alert-visor-pulse {
+  from { opacity: 0.55; filter: drop-shadow(0 0 7px rgba(190, 120, 255, 0.65)); }
+  to { opacity: 1; filter: drop-shadow(0 0 18px rgba(215, 170, 255, 1)); }
+}
+
+/* =========================================================
+   EMBER / SPARK PARTICLE FIELD
+   ========================================================= */
+
+.android-embers {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 2;
+}
+
+.android-embers span {
+  position: absolute;
+  bottom: 35%;
+  left: 50%;
+
+  width: 3px;
+  height: 3px;
+
+  border-radius: 50%;
+
+  background: #ff4d5e;
+
+  box-shadow:
+    0 0 6px rgba(255, 77, 94, 0.9),
+    0 0 14px rgba(255, 47, 66, 0.5);
+
+  opacity: 0;
+
+  animation: ember-rise var(--dur, 3s) ease-out infinite;
+}
+
+.android-embers span:nth-child(1) { left: 42%; --dur: 3.2s; animation-delay: -0.4s; }
+.android-embers span:nth-child(2) { left: 55%; --dur: 2.6s; animation-delay: -1.1s; }
+.android-embers span:nth-child(3) { left: 48%; --dur: 3.8s; animation-delay: -2.3s; }
+.android-embers span:nth-child(4) { left: 60%; --dur: 3.0s; animation-delay: -0.8s; }
+.android-embers span:nth-child(5) { left: 38%; --dur: 3.4s; animation-delay: -1.7s; }
+.android-embers span:nth-child(6) { left: 52%; --dur: 2.8s; animation-delay: -2.9s; }
+
+@keyframes ember-rise {
+  0%   { transform: translate(-50%, 0) scale(0.5); opacity: 0; }
+  15%  { opacity: 0.9; }
+  70%  { opacity: 0.5; }
+  100% { transform: translate(-50%, -180px) scale(0.2); opacity: 0; }
+}
+
+
+/* =========================================================
+   MOBILE SIZING
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .android-stage {
+    width: 170px;
+    height: 320px;
+  }
+
+  .main-stage {
+    grid-template-rows:
+      380px
+      180px
+      minmax(170px, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .android-stage {
+    width: 150px;
+    height: 280px;
+  }
+
+  .main-stage {
+    grid-template-rows:
+      320px
+      150px
+      150px
+      minmax(180px, 1fr);
+  }
+}
+
+/* =========================================================
+   MISSION ALERT PROTOCOL
+   ========================================================= */
+
+.mission-alert-toggle {
+  margin-left: auto;
+  margin-right: 8px;
+  padding: 5px 9px;
+  border: 1px solid rgba(170, 100, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(120, 70, 180, 0.07);
+  color: rgba(220, 190, 255, 0.58);
+  font: inherit;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.mission-alert-toggle:hover {
+  border-color: rgba(190, 130, 255, 0.5);
+  color: #e8d8ff;
+  box-shadow: 0 0 18px rgba(150, 80, 255, 0.16);
+}
+
+.mission-alert-toggle.enabled {
+  border-color: rgba(110, 255, 190, 0.32);
+  color: rgba(150, 255, 210, 0.9);
+  background: rgba(70, 190, 130, 0.06);
+}
+
+.mission-alert-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 92px;
+}
+
+.mission-alert-card {
+  position: relative;
+  width: min(430px, calc(100vw - 32px));
+  overflow: hidden;
+  pointer-events: auto;
+  border: 1px solid rgba(180, 120, 255, 0.48);
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, rgba(34, 20, 50, 0.96), rgba(10, 8, 17, 0.97));
+  box-shadow:
+    0 0 0 1px rgba(120, 70, 190, 0.08),
+    0 22px 70px rgba(0, 0, 0, 0.55),
+    0 0 45px rgba(150, 80, 255, 0.2);
+  backdrop-filter: blur(22px) saturate(130%);
+  -webkit-backdrop-filter: blur(22px) saturate(130%);
+  animation: mission-alert-enter 0.45s cubic-bezier(.2,.8,.2,1),
+             mission-alert-pulse 2.4s ease-in-out infinite;
+}
+
+.mission-alert-card.priority-critical {
+  border-color: rgba(255, 90, 120, 0.58);
+  box-shadow:
+    0 0 0 1px rgba(255, 80, 110, 0.08),
+    0 22px 70px rgba(0, 0, 0, 0.6),
+    0 0 55px rgba(255, 70, 100, 0.22);
+}
+
+.mission-alert-scanline {
+  position: absolute;
+  inset: -100% 0 auto;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(200, 150, 255, 0.08),
+    transparent
+  );
+  animation: mission-alert-scan 2.8s linear infinite;
+  pointer-events: none;
+}
+
+.mission-alert-header,
+.mission-alert-priority,
+.mission-alert-title,
+.mission-alert-description,
+.mission-alert-actions {
+  position: relative;
+  z-index: 1;
+}
+
+.mission-alert-header {
+  padding: 15px 18px 12px;
+  border-bottom: 1px solid rgba(180, 120, 255, 0.12);
+  color: rgba(235, 220, 255, 0.7);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.mission-alert-indicator {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #c58aff;
+  box-shadow: 0 0 12px rgba(197, 138, 255, 0.95);
+  animation: mission-alert-dot 0.9s ease-in-out infinite alternate;
+}
+
+.priority-critical .mission-alert-indicator {
+  background: #ff657d;
+  box-shadow: 0 0 14px rgba(255, 101, 125, 0.95);
+}
+
+.mission-alert-priority {
+  padding: 20px 20px 4px;
+  color: rgba(200, 160, 255, 0.72);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.mission-alert-title {
+  padding: 2px 20px 0;
+  color: #f7f2ff;
+  font-size: 23px;
+  font-weight: 650;
+  letter-spacing: -0.3px;
+  text-shadow: 0 0 24px rgba(190, 130, 255, 0.18);
+}
+
+.mission-alert-description {
+  padding: 8px 20px 20px;
+  color: rgba(220, 210, 235, 0.5);
+  font-size: 12px;
+}
+
+.mission-alert-actions {
+  display: flex;
+  gap: 8px;
+  padding: 0 20px 18px;
+}
+
+.mission-alert-actions button {
+  flex: 1;
+  min-height: 36px;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.mission-alert-complete {
+  border: 1px solid rgba(160, 110, 240, 0.45);
+  background: rgba(150, 90, 230, 0.15);
+  color: #eadcff;
+}
+
+.mission-alert-complete:hover {
+  background: rgba(160, 100, 245, 0.26);
+  box-shadow: 0 0 20px rgba(150, 90, 240, 0.2);
+}
+
+.mission-alert-dismiss {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.025);
+  color: rgba(235, 230, 245, 0.55);
+}
+
+.mission-alert-dismiss:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+@keyframes mission-alert-enter {
+  from { opacity: 0; transform: translateY(-18px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes mission-alert-pulse {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(2px); }
+}
+
+@keyframes mission-alert-scan {
+  from { transform: translateY(-40%); }
+  to { transform: translateY(240%); }
+}
+
+@keyframes mission-alert-dot {
+  from { opacity: 0.45; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mission-alert-card,
+  .mission-alert-scanline,
+  .mission-alert-indicator {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   ULTRON — MISSION ALERT STATE
+   ========================================================= */
+
+.android-figure.state-alert {
+  animation:
+    core-alert-breathe 0.9s ease-in-out infinite,
+    core-alert-shake 0.12s ease-in-out 3;
+
+  filter:
+    drop-shadow(0 0 22px rgba(255, 70, 90, 0.55))
+    drop-shadow(0 0 55px rgba(168, 85, 247, 0.28));
+}
+
+
+/* ---------------------------------------------------------
+   OUTER HUD
+--------------------------------------------------------- */
+
+.android-figure.state-alert .core-ring-outer {
+  animation:
+    core-alert-outer-spin 2.8s linear infinite;
+}
+
+
+.android-figure.state-alert .core-ring-middle {
+  animation:
+    core-alert-middle-spin 1.6s linear infinite;
+
+  opacity: 1;
+
+  stroke-width: 2;
+}
+
+
+.android-figure.state-alert .core-orbit {
+  animation-duration: 1.4s;
+}
+
+
+/* ---------------------------------------------------------
+   CORE ENERGY
+--------------------------------------------------------- */
+
+.android-figure.state-alert .android-core-glow {
+  animation:
+    core-alert-glow 0.65s ease-in-out infinite;
+}
+
+
+.android-figure.state-alert .android-core {
+  animation:
+    core-alert-core 0.65s ease-in-out infinite;
+}
+
+
+/* ---------------------------------------------------------
+   VISOR / MAJOR HUD TICKS
+--------------------------------------------------------- */
+
+.android-figure.state-alert .android-visor {
+  animation:
+    core-alert-visor 0.55s ease-in-out infinite;
+}
+
+
+/* ---------------------------------------------------------
+   REACTOR
+--------------------------------------------------------- */
+
+.android-figure.state-alert .reactor-turbine {
+  animation:
+    core-alert-turbine 1.8s linear infinite;
+}
+
+
+.android-figure.state-alert .reactor-ring {
+  opacity: 1;
+}
+
+
+/* ---------------------------------------------------------
+   ALERT PULSE
+--------------------------------------------------------- */
+
+@keyframes core-alert-breathe {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.045);
+  }
+
+}
+
+
+@keyframes core-alert-glow {
+
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+
+}
+
+
+@keyframes core-alert-core {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.18);
+  }
+
+}
+
+
+@keyframes core-alert-outer-spin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+
+@keyframes core-alert-middle-spin {
+
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+
+}
+
+
+@keyframes core-alert-turbine {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+
+/* ---------------------------------------------------------
+   ALERT FLASH
+--------------------------------------------------------- */
+
+@keyframes core-alert-visor {
+
+  0%,
+  100% {
+    opacity: 1;
+
+    filter:
+      drop-shadow(0 0 8px rgba(255, 92, 108, 0.9));
+  }
+
+  50% {
+    opacity: 0.35;
+
+    filter:
+      drop-shadow(0 0 24px rgba(255, 92, 108, 1))
+      drop-shadow(0 0 45px rgba(255, 50, 70, 0.65));
+  }
+
+}
+
+
+/* ---------------------------------------------------------
+   VERY SUBTLE ALERT IMPACT
+--------------------------------------------------------- */
+
+@keyframes core-alert-shake {
+
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-1px);
+  }
+
+  50% {
+    transform: translateX(1px);
+  }
+
+  75% {
+    transform: translateX(-1px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+
+}
+
+/* =========================================================
+   ULTRON — MISSION ALERT HUD
+   ========================================================= */
+
+.mission-alert-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: center;
+
+  padding-top: 90px;
+
+  pointer-events: none;
+
+  animation:
+    mission-alert-overlay-in 0.35s ease both;
+}
+
+
+.mission-alert-panel {
+  position: relative;
+
+  width: min(420px, calc(100vw - 40px));
+
+  padding: 20px 22px;
+
+  pointer-events: auto;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(18, 12, 25, 0.92),
+      rgba(10, 8, 15, 0.86)
+    );
+
+  border: 1px solid rgba(192, 132, 252, 0.45);
+
+  border-radius: 14px;
+
+  backdrop-filter: blur(24px);
+
+  box-shadow:
+    0 20px 80px rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(168, 85, 247, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  overflow: hidden;
+
+  animation:
+    mission-alert-panel-in 0.4s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    both;
+}
+
+
+.mission-alert-panel::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(216, 180, 254, 0.8),
+      transparent
+    );
+
+  animation:
+    mission-alert-scan 2s linear infinite;
+}
+
+
+/* ---------------------------------------------------------
+   HEADER
+--------------------------------------------------------- */
+
+.mission-alert-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  color: rgba(216, 180, 254, 0.9);
+}
+
+
+.mission-alert-symbol {
+  color: #fda4af;
+
+  font-size: 13px;
+
+  text-shadow:
+    0 0 10px rgba(255, 100, 120, 0.8);
+
+  animation:
+    mission-alert-symbol-pulse 0.9s
+    ease-in-out infinite;
+}
+
+
+.mission-alert-line {
+  width: 100%;
+
+  height: 1px;
+
+  margin: 14px 0 16px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(192, 132, 252, 0.45),
+      transparent
+    );
+}
+
+
+/* ---------------------------------------------------------
+   CONTENT
+--------------------------------------------------------- */
+
+.mission-alert-label {
+  font-size: 8px;
+
+  letter-spacing: 2.5px;
+
+  color: rgba(255, 255, 255, 0.35);
+
+  margin-bottom: 7px;
+}
+
+
+.mission-alert-title {
+  font-size: 18px;
+
+  line-height: 1.35;
+
+  font-weight: 600;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 0 16px rgba(192, 132, 252, 0.25);
+}
+
+
+.mission-alert-priority {
+  margin-top: 12px;
+
+  font-size: 8px;
+
+  letter-spacing: 1.8px;
+
+  color: rgba(255, 255, 255, 0.42);
+}
+
+
+.mission-alert-priority.priority-high {
+  color: #fbbf24;
+}
+
+
+.mission-alert-priority.priority-critical {
+  color: #f87171;
+
+  text-shadow:
+    0 0 10px rgba(248, 113, 113, 0.5);
+}
+
+
+/* ---------------------------------------------------------
+   DISMISS
+--------------------------------------------------------- */
+
+.mission-alert-dismiss {
+  margin-top: 18px;
+
+  padding: 7px 13px;
+
+  border: 1px solid rgba(192, 132, 252, 0.25);
+
+  border-radius: 7px;
+
+  background: rgba(192, 132, 252, 0.06);
+
+  color: rgba(255, 255, 255, 0.65);
+
+  font-family: inherit;
+
+  font-size: 8px;
+
+  letter-spacing: 1.5px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.mission-alert-dismiss:hover {
+  background: rgba(192, 132, 252, 0.13);
+
+  border-color: rgba(192, 132, 252, 0.5);
+
+  transform: translateY(-1px);
+}
+
+
+/* ---------------------------------------------------------
+   ANIMATIONS
+--------------------------------------------------------- */
+
+@keyframes mission-alert-overlay-in {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+
+@keyframes mission-alert-panel-in {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-20px)
+      scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+}
+
+
+@keyframes mission-alert-scan {
+
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+
+}
+
+
+@keyframes mission-alert-symbol-pulse {
+
+  0%,
+  100% {
+    opacity: 0.55;
+
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform: scale(1.12);
+  }
+
+}
+
+/* =========================================================
+   ULTRON — MOBILE LAYOUT OVERRIDE
+   Final responsive correction
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  /* ---------------------------------------------------------
+     MOBILE ROOT
+     Desktop is viewport-locked.
+     Mobile becomes naturally scrollable.
+     --------------------------------------------------------- */
+
+  .ultron-interface {
+    height: auto;
+    min-height: 100dvh;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+
+  /* ---------------------------------------------------------
+     HEADER
+     --------------------------------------------------------- */
+
+  .top-bar {
+    flex-shrink: 0;
+  }
+
+
+  /* ---------------------------------------------------------
+     MAIN STAGE
+     --------------------------------------------------------- */
+
+  .main-stage {
+    flex: none;
+
+    height: auto;
+    min-height: 0;
+
+    overflow: visible;
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    grid-template-rows:
+      300px
+      140px
+      180px
+      minmax(300px, auto);
+
+    gap: 12px;
+
+    padding:
+      16px 14px 12px;
+  }
+
+
+  /* ---------------------------------------------------------
+     ULTRON CORE
+     --------------------------------------------------------- */
+
+  .core-zone {
+    grid-column: 1;
+    grid-row: 1;
+
+    min-height: 0;
+
+    overflow: hidden;
+  }
+
+
+  .ultron-core {
+    width: 180px;
+    height: 180px;
+  }
+
+
+  .ring-one {
+    width: 112px;
+    height: 112px;
+  }
+
+
+  .ring-two {
+    width: 148px;
+    height: 148px;
+  }
+
+
+  .ring-three {
+    width: 176px;
+    height: 176px;
+  }
+
+
+  .core-orb {
+    width: 78px;
+    height: 78px;
+  }
+
+
+  .core-inner {
+    width: 42px;
+    height: 42px;
+  }
+
+
+  .core-inner span {
+    font-size: 21px;
+  }
+
+
+  .core-name {
+    font-size: 16px;
+  }
+
+
+  /* ---------------------------------------------------------
+     SYSTEM PANEL
+     --------------------------------------------------------- */
+
+  .hud-left {
+    grid-column: 1;
+    grid-row: 2;
+
+    min-height: 0;
+  }
+
+
+  /* ---------------------------------------------------------
+     MISSIONS PANEL
+     --------------------------------------------------------- */
+
+  .hud-right {
+    grid-column: 1;
+    grid-row: 3;
+
+    min-height: 0;
+  }
+
+
+  /* ---------------------------------------------------------
+     COMMUNICATION
+     --------------------------------------------------------- */
+
+  .communication-panel {
+    grid-column: 1;
+    grid-row: 4;
+
+    min-height: 300px;
+    height: auto;
+
+    overflow: hidden;
+  }
+
+
+  .communication-panel .chat-container {
+    flex: 1 1 0;
+
+    min-height: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    -webkit-overflow-scrolling: touch;
+
+    padding:
+      12px 12px 14px;
+  }
+
+
+  /* ---------------------------------------------------------
+     CHAT BUBBLES
+     --------------------------------------------------------- */
+
+  .message-row {
+    max-width: 92%;
+  }
+
+
+  /* ---------------------------------------------------------
+     COMMAND AREA
+     --------------------------------------------------------- */
+
+  .command-area {
+    flex-shrink: 0;
+
+    width: calc(100% - 24px);
+
+    padding:
+      10px 0 16px;
+  }
+
+
+  .command-bar {
+    width: 100%;
+    max-width: none;
+  }
+
+
+  /* ---------------------------------------------------------
+     MOBILE TOUCH BEHAVIOR
+     --------------------------------------------------------- */
+
+  .chat-container,
+  .communication-panel,
+  .missions-panel,
+  .hud-panel {
+    touch-action: pan-y;
+  }
+
+}
+
+/* Developer footer: presentation-only integration */
+.ultron-interface > .ultron-footer { position: relative; z-index: 20; flex: 0 0 auto; width: 100%; margin: 4px auto 0; }
+@media (max-height: 760px) { .ultron-interface > .ultron-footer { margin-top: 2px; padding-bottom: 5px; } }
+
+/* =========================================================
+   FIX: command bar left controls (language + mic) not visible
+   ========================================================= */
+
+/* decorative layers must never sit above or block controls */
+.command-bar::before,
+.command-bar::after {
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* force the controls above those layers */
+.command-bar > .voice-language-selector,
+.command-bar > .microphone-button {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  visibility: visible;
+  flex: 0 0 auto;
+}
+
+.command-bar > .microphone-button:not(:disabled) {
+  opacity: 1;
+}
+
+/* make them clearly visible on the dark glass bar */
+.command-bar > .voice-language-selector {
+  background: rgba(20, 14, 32, 0.92);
+  border: 1px solid rgba(192, 132, 252, 0.35);
+}
+
+.command-bar > .microphone-button {
+  border: 1px solid rgba(0, 200, 255, 0.55);
+  background: rgba(0, 30, 45, 0.9);
+}
+
+.command-bar > .microphone-button .mic-core {
+  color: #00c8ff;
+}
+
+.command-bar,
+.command-bar .voice-language-selector {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.command-bar {
+  background-color: rgba(18, 12, 30, 0.9);
+}

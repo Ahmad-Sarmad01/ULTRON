@@ -1,0 +1,14 @@
+.ultron-footer {
+  text-align: center;
+  font-family: "Courier New", monospace;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.7;
+  margin-top: 14px;
+  padding: 0 8px 10px;
+}
+.ultron-footer-title { font-size: 11px; letter-spacing: 2px; color: #d6a84f; font-weight: 600; }
+.ultron-footer-subtitle { margin-top: 3px; font-size: 9px; letter-spacing: 1.5px; color: rgba(255,255,255,.5); }
+.ultron-footer-credit { margin-top: 6px; font-size: 9px; letter-spacing: 1px; color: rgba(255,255,255,.4); }
+.ultron-footer-credit a { color: #d6a84f; text-decoration: none; pointer-events: auto; transition: opacity .2s ease; }
+.ultron-footer-credit a:hover { opacity: 1; text-decoration: underline; }

@@ -1,0 +1,157 @@
+.ultron-mode-screen {
+  min-height: 100dvh;
+  width: 100vw;
+  min-width: 100vw;
+  color: #fff8e9;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: "IBM Plex Mono", "Lucida Console", monospace;
+  position: relative;
+}
+
+.ultron-mode-void {
+  position: fixed;
+  inset: -10%;
+  background: radial-gradient(circle at center, rgba(75, 37, 6, 0.12), transparent 32%), #000;
+  pointer-events: none;
+}
+
+.ultron-mode-frame {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ultron-mode-core-wrap {
+  position: relative;
+  width: min(100vw, 1400px);
+  height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ultron-mode-gesture-switch,
+.ultron-mode-gesture-status {
+  position: fixed;
+  z-index: 2;
+  color: rgba(255, 220, 163, 0.62);
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.ultron-mode-gesture-debug {
+  position: fixed;
+  right: 22px;
+  bottom: 18px;
+  z-index: 2;
+  margin: 0;
+  color: rgba(242, 195, 92, 0.58);
+  font: 9px/1.55 "Lucida Console", "Courier New", monospace;
+  letter-spacing: 1px;
+  pointer-events: none;
+}
+
+.ultron-mode-gesture-switch {
+  left: 22px;
+  bottom: 20px;
+  border: 1px solid rgba(210, 137, 43, 0.3);
+  background: rgba(0, 0, 0, 0.24);
+  padding: 7px 9px;
+  cursor: pointer;
+  opacity: 0.72;
+}
+
+.ultron-mode-gesture-switch:hover,
+.ultron-mode-gesture-switch:focus-visible,
+.ultron-mode-gesture-switch[aria-pressed="true"] {
+  color: #f2c35c;
+  border-color: rgba(242, 195, 92, 0.72);
+  outline: none;
+  opacity: 1;
+}
+
+.ultron-mode-gesture-status {
+  left: 22px;
+  bottom: 7px;
+  color: rgba(242, 195, 92, 0.48);
+}
+
+.ultron-mode-assist-switch {
+  position: fixed;
+  right: 22px;
+  top: 20px;
+  z-index: 2;
+  appearance: none;
+  border: 1px solid rgba(255, 226, 178, 0.32);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.1);
+  color: rgba(255, 226, 178, 0.78);
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: color 260ms ease, border-color 260ms ease, background 260ms ease, opacity 260ms ease;
+  opacity: 0.75;
+}
+
+.ultron-mode-assist-switch:hover,
+.ultron-mode-assist-switch:focus {
+  color: #ffeebc;
+  border-color: rgba(255, 223, 166, 0.86);
+  background: rgba(250, 180, 85, 0.08);
+  outline: none;
+  opacity: 1;
+}
+
+.ultron-mode-assist-switch-orbit {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffd376;
+  box-shadow: 0 0 8px rgba(255, 214, 136, 0.9);
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .ultron-mode-assist-switch {
+    right: 14px;
+    top: 14px;
+  }
+
+  .ultron-mode-gesture-switch,
+  .ultron-mode-gesture-status {
+    left: 14px;
+  }
+
+  .ultron-mode-gesture-debug {
+    right: 14px;
+    bottom: 56px;
+  }
+
+  .ultron-mode-gesture-switch {
+    bottom: 16px;
+  }
+
+  .ultron-mode-gesture-status {
+    bottom: 4px;
+  }
+
+  .ultron-mode-core-wrap {
+    width: 100vw;
+  }
+}

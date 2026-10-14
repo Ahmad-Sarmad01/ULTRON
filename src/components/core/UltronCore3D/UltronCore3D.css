@@ -1,0 +1,44 @@
+.ultron-core-3d {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f8e6bb;
+  background: transparent;
+  touch-action: none;
+}
+
+.ultron-core-3d-wrap {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.ultron-core-3d-canvas {
+  width: 100vw;
+  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+}
+
+.ultron-core-3d-canvas canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+

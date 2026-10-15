@@ -1,4 +1,5 @@
 import os
+import sys
 import sqlite3
 from datetime import datetime
 from typing import Optional, Any
@@ -14,7 +15,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from fastapi import HTTPException
-
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from providers.router import generate_response
 from memory import initialize_memory, save_memory, get_memories
 from memory_recall import recall_memory_query

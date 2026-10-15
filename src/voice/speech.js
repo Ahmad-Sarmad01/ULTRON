@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../services/api.js";
 // ==================================================
 // ULTRON — BACKEND SPEECH ENGINE
 // ==================================================
@@ -51,7 +52,7 @@ export async function speak(
   try {
 
     const response = await fetch(
-      "http://127.0.0.1:8000/voice",
+      `${API_BASE_URL}/voice`,
       {
         method: "POST",
 

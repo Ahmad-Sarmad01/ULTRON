@@ -69,12 +69,15 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
+        "https://ultron-ahmad.netlify.app",
+        "https://ultron-ahmad.vercel.app",
         *filter(None, [os.getenv("FRONTEND_URL")]),
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 app.include_router(memory_router)
 app.include_router(mood_router)
